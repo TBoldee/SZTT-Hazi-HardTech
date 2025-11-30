@@ -8,5 +8,15 @@ namespace VotingPlatform.Model
 {
 	public class User
 	{
+		private static int _id = 0;
+		public int Id { get;  set; }
+		public string Name { get; set; }
+
+		public User(string name)
+		{
+			Id = _id;
+			_id++;
+			Name = name;
+		}
 	}
 }

@@ -8,7 +8,7 @@ namespace VotingPlatform.Model
 {
 	public class Vote
 	{
-		private static int voteId = 1;
+		private static int _voteId = 1;
 		public int VoteId { get; set; }
 		public int UserId { get; set; }
 		public int PollId { get; set; }
@@ -16,8 +16,8 @@ namespace VotingPlatform.Model
 
 		public Vote(int userId, int pollId, int option)
 		{
-			VoteId = voteId;
-			voteId++;
+			VoteId = _voteId;
+			_voteId++;
 			UserId = userId;
 			PollId = pollId;
 			Option = option;
