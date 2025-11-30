@@ -23,7 +23,7 @@ namespace VotingPlatform.Model
 			return JsonSerializer.Deserialize<VotingPlatform>(deserialized, _options);
 		}
 
-		public static void SerializeUserDict(Dictionary<int, string> userDict)
+		public static void SerializeUserDict(Dictionary<string, string> userDict)
 		{
 			var sb = new StringBuilder();
 			foreach (var kvp in userDict)
@@ -33,10 +33,10 @@ namespace VotingPlatform.Model
 			File.WriteAllText("UserDict.txt", sb.ToString());
 		}
 
-		public static Dictionary<int, string> DeserializeUserDict()
+		public static Dictionary<string, string> DeserializeUserDict()
 		{
 			var lines = File.ReadLines("UserDict.txt");
-			return lines.Select(line => line.Split(':')).ToDictionary(split => int.Parse(split[0]), split => split[1]);
+			return lines.Select(line => line.Split(':')).ToDictionary(split => split[0], split => split[1]);
 		}
 	}
 }
