@@ -65,10 +65,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="ViewModel\" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <MauiXaml Update="View\LogInView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

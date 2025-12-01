@@ -12,4 +12,13 @@ public partial class CreatePollView : ContentPage
     {
         InitializeComponent();
     }
+    private void AddOptionButtonClicked(object? sender, EventArgs e)
+    {
+        Options.Children.Add(new Entry(){WidthRequest = 150});
+    }
+
+    private void CreatePollButtonClicked(object? sender, EventArgs e)
+    {
+        
+    }
 }

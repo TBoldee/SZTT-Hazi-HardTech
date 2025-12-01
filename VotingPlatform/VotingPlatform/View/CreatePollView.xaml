@@ -5,6 +5,28 @@
              x:Class="VotingPlatform.View.CreatePollView"
              Title="">
     <ContentPage.Content>
-        
+        <ScrollView>
+            <VerticalStackLayout Spacing="5" Padding="5" HorizontalOptions="Center" >
+                <HorizontalStackLayout Spacing="5">
+                    <Label Text="Title: "/>
+                    <Entry WidthRequest="150"/>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Spacing="5">
+                    <Label Text="Description: "/>
+                    <Editor WidthRequest="150" AutoSize="TextChanges"/>
+                </HorizontalStackLayout>
+                <Label Text="Options: "/>
+                <HorizontalStackLayout Spacing="15">
+                    <VerticalStackLayout x:Name="Options" Spacing="5">
+                        <Entry WidthRequest="150"/>
+                        <Entry WidthRequest="150"/>
+                    </VerticalStackLayout>
+                    <VerticalStackLayout Spacing="15">
+                        <Button x:Name="AddOptionButton" Text="Add option" MaximumHeightRequest="50" Clicked="AddOptionButtonClicked" VerticalOptions="Start"/>
+                        <Button x:Name="CreatePollButton" Text="Create poll" MaximumHeightRequest="50" Clicked="CreatePollButtonClicked" />
+                    </VerticalStackLayout>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>
