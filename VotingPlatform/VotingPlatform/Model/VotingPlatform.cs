@@ -11,13 +11,11 @@ namespace VotingPlatform.Model
 {
 	public class VotingPlatform
 	{
-		[JsonIgnore]
-		public List<User> UserList { get; set; }
-		public List<Poll> PollList { get; set; }
-		public List<Vote> VoteList { get; set; }
-		[JsonIgnore]
-		public Dictionary<string, string> UserDictionary {get; set;} //username,hash
-
+		[JsonIgnore] public List<User> UserList { get; set; } = new();
+		public List<Poll> PollList { get; set; } = new();
+		public List<Vote> VoteList { get; set; } = new();
+		[JsonIgnore] public Dictionary<string, string> UserDictionary { get; set; } = new(); //username,hash
+		
 		[OnDeserialized]
 		internal void InitializeRelations()
 		{
