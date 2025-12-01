@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -18,11 +19,11 @@ namespace VotingPlatform.Model
 		public DateTime CreatedAt { get; set; }
 		public DateTime ClosedAt { get; set; }
 		public PollStatus Status { get; set; } = PollStatus.OPEN;
-		public List<VoteOption> VoteOptions { get; set; }
+		public ObservableCollection<VoteOption> VoteOptions { get; set; }
 		[JsonIgnore]
 		public List<Vote> Votes { get; set; } = new();
 
-		public Poll(int userId, string title, string description, DateTime closedAt, List<VoteOption> voteOptions)
+		public Poll(int userId, string title, string description, DateTime closedAt, ObservableCollection<VoteOption> voteOptions)
 		{
 			Id = _id;
 			_id++;
