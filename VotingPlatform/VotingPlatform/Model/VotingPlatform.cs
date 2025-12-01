@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace VotingPlatform.Model
 {
-	public class VotingPlatform
+	public class VotingPlatform : ObservableObject
 	{
 		[JsonIgnore] public List<User> UserList { get; set; } = new();
 		public List<Poll> PollList { get; set; } = new();

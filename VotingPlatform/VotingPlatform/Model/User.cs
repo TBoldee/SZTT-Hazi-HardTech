@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace VotingPlatform.Model
 {
-	public class User
+	public class User : ObservableObject
 	{
 		private static int _id = 0;
 		public int Id { get;  set; }
