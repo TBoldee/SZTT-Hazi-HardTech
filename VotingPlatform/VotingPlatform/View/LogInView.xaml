@@ -4,9 +4,7 @@
              x:Class="VotingPlatform.View.LogInView"
              Title="">
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <Label Text="Log in" HorizontalOptions="Center" />
+        <Button x:Name="LogInButton" Text="Log in" Clicked="LogInButton_ClickedClicked" />
     </VerticalStackLayout>
 </ContentPage>

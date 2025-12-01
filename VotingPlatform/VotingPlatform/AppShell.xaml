@@ -7,15 +7,21 @@
 	xmlns:view="clr-namespace:VotingPlatform.View"
     Title="VotingPlatform">
 
+	<ShellItem>
+		<ShellContent
+			 Title="Log In"
+			 ContentTemplate="{DataTemplate view:LogInView}"
+			 Route="LogInView" />
+	</ShellItem>
 	<TabBar>
 		<ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+	        Title="Create Poll"
+	        ContentTemplate="{DataTemplate view:CreatePollView}"
+	        Route="CreatePollView" />
 		<ShellContent
-	    Title="Log In"
-	    ContentTemplate="{DataTemplate view:LogInView}"
-	    Route="LogInView" />
+			Title="View All Polls"
+			ContentTemplate="{DataTemplate view:AllPollsView}"
+			Route="AllPollsView" />
 	</TabBar>
     
 

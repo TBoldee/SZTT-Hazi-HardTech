@@ -6,4 +6,9 @@ public partial class LogInView : ContentPage
 	{
 		InitializeComponent();
 	}
+
+	private async void LogInButton_ClickedClicked(object? sender, EventArgs e)
+	{
+		await Shell.Current.GoToAsync("//"+nameof(AllPollsView));
+	}
 }
