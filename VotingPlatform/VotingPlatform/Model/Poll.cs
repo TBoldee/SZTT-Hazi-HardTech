@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace VotingPlatform.Model
 {
 	public class Poll : ObservableObject
 	{
+		[JsonIgnore]
 		private static int _id = 0;
 		public int Id  { get; set; }
 		public int CreatorId { get; set; }
@@ -17,6 +19,7 @@ namespace VotingPlatform.Model
 		public DateTime ClosedAt { get; set; }
 		public PollStatus Status { get; set; } = PollStatus.OPEN;
 		public List<VoteOption> VoteOptions { get; set; }
+		[JsonIgnore]
 		public List<Vote> Votes { get; set; } = new();
 
 		public Poll(int userId, string title, string description, DateTime closedAt, List<VoteOption> voteOptions)
@@ -29,6 +32,8 @@ namespace VotingPlatform.Model
 			ClosedAt = closedAt;
 			VoteOptions = voteOptions;
 		}
+
+		public Poll() {}
 		
 		public void AddVote(Vote vote)
 		{

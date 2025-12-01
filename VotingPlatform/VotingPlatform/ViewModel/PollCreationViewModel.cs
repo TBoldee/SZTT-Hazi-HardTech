@@ -60,7 +60,9 @@ public class PollCreationViewModel : ObservableObject
             var newPoll = new Poll(VotingPlatformViewModel.CurrentUser.Id, Title, Description, ClosedAt, Options.ToList());
             VotingPlatformViewModel.PollViewModelList.Add(new PollViewModel(newPoll));
             VotingPlatformViewModel.Model.PollList.Add(newPoll);
+            DataSerializer.SerializeVotingPlatform(VotingPlatformViewModel.Model);
             ResetAllFields();
+            Application.Current.MainPage.DisplayAlert("Success", "", "Ok");
         }
     }
     private void ResetAllFields()
