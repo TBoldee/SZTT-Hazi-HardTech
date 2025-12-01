@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -11,13 +12,18 @@ namespace VotingPlatform.Model
 	public class VotingPlatform
 	{
 		[JsonIgnore]
-		public DataSerializer DataSerializer { get; set; }
 		public List<User> UserList { get; set; }
 		public List<Poll> PollList { get; set; }
 		public List<Vote> VoteList { get; set; }
 		[JsonIgnore]
 		public Dictionary<string, string> UserDictionary {get; set;} //username,hash
 
+		[OnDeserialized]
+		internal void InitializeRelations()
+		{
+			UserDictionary = DataSerializer.DeserializeUserDict();
+			ConnectPollsToVotes();
+		}
 		public bool LogIn(string username, string password)
 		{
 			foreach (var kvp in UserDictionary)
@@ -43,6 +49,18 @@ namespace VotingPlatform.Model
 		{
 			var byteArray = SHA256.HashData(Encoding.UTF8.GetBytes(password));
 			return Convert.ToHexString(byteArray);
+		}
+
+		private void ConnectPollsToVotes()
+		{
+			foreach (var vote in VoteList)
+			{
+				foreach (var poll in PollList)
+				{
+					if (vote.PollId == poll.Id) poll.AddVote(vote);
+					break;
+				}
+			}
 		}
 	}
 }

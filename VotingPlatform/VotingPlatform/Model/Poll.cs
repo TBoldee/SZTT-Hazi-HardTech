@@ -16,6 +16,7 @@ namespace VotingPlatform.Model
 		public DateTime CreatedAt { get; set; }
 		public DateTime ClosedAt { get; set; }
 		public PollStatus Status { get; set; } = PollStatus.OPEN;
+		public List<Vote> Votes { get; set; } = new();
 
 		public Poll(int userId, string title, string description, DateTime closedAt)
 		{
@@ -25,6 +26,11 @@ namespace VotingPlatform.Model
 			Description = description;
 			CreatedAt = DateTime.Now;
 			ClosedAt = closedAt;
+		}
+		
+		public void AddVote(Vote vote)
+		{
+			Votes.Add(vote);
 		}
 	}
 }
