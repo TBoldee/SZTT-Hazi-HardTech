@@ -3,22 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VotingPlatform.ViewModel;
 
 namespace VotingPlatform.View;
 
 public partial class CreatePollView : ContentPage
 {
+    public PollCreationViewModel ViewModel {get; set;}
     public CreatePollView()
     {
+        this.ViewModel = AppShell.VPVM.PollCreationViewModel;
+        BindingContext = this.ViewModel;
         InitializeComponent();
-    }
-    private void AddOptionButtonClicked(object? sender, EventArgs e)
-    {
-        Options.Children.Add(new Entry(){WidthRequest = 150});
-    }
-
-    private void CreatePollButtonClicked(object? sender, EventArgs e)
-    {
-        
     }
 }
