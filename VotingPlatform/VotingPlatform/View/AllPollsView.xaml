@@ -13,42 +13,45 @@
 	</ContentPage.Resources>
 	
 	<ContentPage.Content>
-		<VerticalStackLayout x:DataType="viewModel:VotingPlatformViewModel" HorizontalOptions="Center">
-			<CollectionView ItemsSource="{Binding PollViewModelList}">
-				<CollectionView.ItemTemplate>
+        <Grid RowDefinitions="Auto,*">
+            <Label Grid.Row="0" HorizontalOptions="Center"/>
+            
+            <CollectionView ItemsSource="{Binding PollViewModelList}" Grid.Row="1">
+                <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="viewModel:PollViewModel">
-						<VerticalStackLayout>
-							<Border WidthRequest="700" Margin="20" Padding="2">
-								<VerticalStackLayout>
-									<Label Text="{Binding Title}" FontSize="35" HorizontalOptions="Center"/>
-									<Label Text="{Binding Description}" FontSize="20"/>
-									<HorizontalStackLayout Spacing="5">
-										<Label Text="Created at:" FontSize="10"/>
-										<Label Text="{Binding CreatedAt}" FontSize="10"/>
-									</HorizontalStackLayout>
-									<HorizontalStackLayout Spacing="5">
-										<Label Text="Closes at:" FontSize="10"/>
-										<Label Text="{Binding ClosedAt}" FontSize="10"/>
-									</HorizontalStackLayout>
-									<CollectionView ItemsSource="{Binding Options}">
-										<CollectionView.ItemTemplate>
-											<DataTemplate x:DataType="viewModel:VoteOptionViewModel">
-												<VerticalStackLayout>
-													<Border Padding="2" Stroke="{Binding IsHighlighted, Converter={StaticResource Voted2ColorConverter}}">
-														<Button Text="{Binding Text}" TextColor="AliceBlue" BackgroundColor="Transparent"
-														        Command="{Binding BindingContext.VotingCommand, Source={x:Reference RootPage}}"
-														        CommandParameter="{Binding .}"/>
-													</Border>
-												</VerticalStackLayout>
-											</DataTemplate>
-										</CollectionView.ItemTemplate>
-									</CollectionView>
-								</VerticalStackLayout>
-							</Border>
-						</VerticalStackLayout>
-					</DataTemplate>
+                        <VerticalStackLayout>
+                            <Border WidthRequest="700" Margin="20" Padding="2">
+                                <VerticalStackLayout>
+                                    <Label Text="{Binding Title}" FontSize="35" HorizontalOptions="Center"/>
+                                    <Label Text="{Binding Description}" FontSize="20"/>
+                                    <HorizontalStackLayout Spacing="5">
+                                        <Label Text="Created at:" FontSize="10"/>
+                                        <Label Text="{Binding CreatedAt}" FontSize="10"/>
+                                    </HorizontalStackLayout>
+                                    <HorizontalStackLayout Spacing="5">
+                                        <Label Text="Closes at:" FontSize="10"/>
+                                        <Label Text="{Binding ClosedAt}" FontSize="10"/>
+                                    </HorizontalStackLayout>
+                                    <StackLayout BindableLayout.ItemsSource="{Binding Options}">
+                                        <BindableLayout.ItemTemplate>
+                                            <DataTemplate x:DataType="viewModel:VoteOptionViewModel">
+                                                <VerticalStackLayout>
+                                                    <Border Padding="2" Stroke="{Binding IsHighlighted, Converter={StaticResource Voted2ColorConverter}}">
+                                                        <Button Text="{Binding Text}" TextColor="AliceBlue" BackgroundColor="Transparent"
+                                                                Command="{Binding BindingContext.VotingCommand, Source={x:Reference RootPage}}"
+                                                                CommandParameter="{Binding .}"/>
+                                                    </Border>
+                                                </VerticalStackLayout>
+                                            </DataTemplate>
+                                        </BindableLayout.ItemTemplate>
+                                    </StackLayout>
+                                </VerticalStackLayout>
+                            </Border>
+                        </VerticalStackLayout>
+                    </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-        </VerticalStackLayout>
+        </Grid>
     </ContentPage.Content>
+
 </ContentPage>
