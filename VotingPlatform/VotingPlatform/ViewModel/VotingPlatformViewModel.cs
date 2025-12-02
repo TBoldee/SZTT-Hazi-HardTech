@@ -19,10 +19,11 @@ public class VotingPlatformViewModel : ObservableObject
         Model = vp;
         CurrentUser = new UserViewModel(new User("Jani"), this);
         PollCreationViewModel = new PollCreationViewModel(this);
-        OpenPollList = new PollViewModelList(Model.PollList, this);
-        ClosedPollList = new PollViewModelList(Model.PollList, this);
-        VotingCommand = new VotingCommand(this);
+        OpenPollList = new PollViewModelList();
+        ClosedPollList = new PollViewModelList();
+        RefreshPolls();
         RefreshHighlights();
+        VotingCommand = new VotingCommand(this);
     }
 
     public void RefreshHighlights()
@@ -36,5 +37,20 @@ public class VotingPlatformViewModel : ObservableObject
         }
     }
 
-    
+    public void RefreshPolls()
+    {
+        Model.RefreshPollStatuses();
+        OpenPollList.Clear();
+        ClosedPollList.Clear();
+
+        foreach (var poll in Model.PollList.Where(poll => poll.Status == PollStatus.OPEN))
+        {
+            OpenPollList.Add(new PollViewModel(poll, this));
+        }
+
+        foreach (var poll in Model.PollList.Where(poll => poll.Status == PollStatus.CLOSED))
+        {
+            ClosedPollList.Add(new PollViewModel(poll, this));
+        }
+    }
 }

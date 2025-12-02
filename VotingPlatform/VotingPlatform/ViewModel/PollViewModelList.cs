@@ -5,11 +5,8 @@ namespace VotingPlatform.ViewModel;
 
 public class PollViewModelList : ObservableCollection<PollViewModel>
 {
-    public PollViewModelList(List<Poll> polls, VotingPlatformViewModel vpvm)
+    public PollViewModelList()
     {
-        foreach (var poll in polls)
-        {
-            Add(new PollViewModel(poll, vpvm));
-        }
+        
     }
 }

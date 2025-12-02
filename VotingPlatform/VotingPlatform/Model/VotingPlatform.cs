@@ -74,5 +74,13 @@ namespace VotingPlatform.Model
 				}
 			}
 		}
+
+		public void RefreshPollStatuses()
+		{
+			foreach (var poll in PollList)
+			{
+				if (poll.ClosedAt < DateTime.Now) poll.Status = PollStatus.CLOSED;
+			}
+		}
 	}
 }
