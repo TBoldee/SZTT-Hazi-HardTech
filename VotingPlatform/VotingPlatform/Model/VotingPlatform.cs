@@ -58,6 +58,7 @@ namespace VotingPlatform.Model
 				UserDictionary.Add(username, hash);
 				UserList.Add(new User(NextUserId, username));
 				DataSerializer.SerializeUserDict(UserDictionary);
+				DataSerializer.SerializeVotingPlatform(this);
 				return true;
 			}
 		}
