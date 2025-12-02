@@ -16,6 +16,7 @@ public class UserViewModel
     
     public bool CanVoteOnPoll(VoteOptionViewModel option)
     {
+        if (option.Poll.ClosedAt < DateTime.Now) return false;
         return !Vpvm.Model.VoteList.AsParallel().Where(v => v.PollId == option.Poll.Id).Any(v => v.UserId == Id);
     }
 
