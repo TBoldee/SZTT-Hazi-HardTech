@@ -13,7 +13,15 @@ namespace VotingPlatform.Model
 	{
 		public List<User> UserList { get; set; } = new();
 		public List<Poll> PollList { get; set; } = new();
+		[JsonInclude]
+		private int lastPollId = 0;
+		[JsonIgnore]
+		public int NextPollId => ++lastPollId;
 		public List<Vote> VoteList { get; set; } = new();
+		[JsonInclude]
+		public int lastVoteId = 0;
+		[JsonIgnore]
+		public int NextVoteId => ++lastVoteId;
 		[JsonIgnore]
 		public Dictionary<string, string> UserDictionary { get; set; } = new(); //username,hash
 		

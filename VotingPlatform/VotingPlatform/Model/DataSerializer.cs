@@ -20,7 +20,9 @@ namespace VotingPlatform.Model
 		public static VotingPlatform DeserializeVotingPlatform()
 		{
 			var deserialized = File.ReadAllText("VotingPlatform.json");
-			return JsonSerializer.Deserialize<VotingPlatform>(deserialized, _options);
+			if (deserialized == "") return new VotingPlatform();
+			var vp = JsonSerializer.Deserialize<VotingPlatform>(deserialized, _options);
+			return vp;
 		}
 
 		public static void SerializeUserDict(Dictionary<string, string> userDict)

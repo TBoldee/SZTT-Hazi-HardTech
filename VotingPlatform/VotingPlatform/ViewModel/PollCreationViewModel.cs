@@ -11,7 +11,7 @@ public class PollCreationViewModel : ObservableObject
     public DateTime CreatedAt { get; set; }
     public DateTime ClosedAt { get; set; }
     public ObservableCollection<VoteOption> Options { get; set; }
-    public VotingPlatformViewModel VotingPlatformViewModel { get; set; }
+    public VotingPlatformViewModel Vpvm { get; set; }
     public Command CreatePollCommand { get; set; }
     public Command AddOptionCommand { get; set; }
 
@@ -20,7 +20,7 @@ public class PollCreationViewModel : ObservableObject
         ResetAllFields();
         CreatePollCommand = new Command(CreatePoll);
         AddOptionCommand = new Command(AddOption);
-        VotingPlatformViewModel = vp;
+        Vpvm = vp;
     }
     public bool ValidatePollDetails()
     {
@@ -57,10 +57,10 @@ public class PollCreationViewModel : ObservableObject
     {
         if (ValidatePollDetails())
         {
-            var newPoll = new Poll(VotingPlatformViewModel.CurrentUser.Id, Title, Description, ClosedAt, Options);
-            VotingPlatformViewModel.PollViewModelList.Add(new PollViewModel(newPoll));
-            VotingPlatformViewModel.Model.PollList.Add(newPoll);
-            DataSerializer.SerializeVotingPlatform(VotingPlatformViewModel.Model);
+            var newPoll = new Poll(Vpvm.NextPollId,Vpvm.CurrentUser.Id, Title, Description, ClosedAt, Options);
+            Vpvm.PollViewModelList.Add(new PollViewModel(newPoll, Vpvm));
+            Vpvm.Model.PollList.Add(newPoll);
+            DataSerializer.SerializeVotingPlatform(Vpvm.Model);
             ResetAllFields();
             Application.Current.MainPage.DisplayAlert("Success", "", "Ok");
         }
@@ -71,7 +71,14 @@ public class PollCreationViewModel : ObservableObject
         Description = "";
         CreatedAt = DateTime.Now;
         ClosedAt = DateTime.Now.AddDays(1);
-        Options = [new VoteOption("asd"), new VoteOption("asd")];
-        Notify();
+        Options = [new VoteOption(""), new VoteOption("")];
+        NotifyAllPropertiesChanged();
+    }
+    
+    private void NotifyAllPropertiesChanged()
+    {
+        Notify(nameof(Title));
+        Notify(nameof(Description));
+        Notify(nameof(Options));
     }
 }

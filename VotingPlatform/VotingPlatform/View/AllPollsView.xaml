@@ -5,8 +5,14 @@
              x:Class="VotingPlatform.View.AllPollsView"
              xmlns:viewModel="clr-namespace:VotingPlatform.ViewModel"
              xmlns:model="clr-namespace:VotingPlatform.Model"
+             xmlns:view="clr-namespace:VotingPlatform.View"
+             x:Name="RootPage"
              Title="">
-    <ContentPage.Content>
+	<ContentPage.Resources>
+		<view:Voted2ColorConverter x:Key="Voted2ColorConverter"/>
+	</ContentPage.Resources>
+	
+	<ContentPage.Content>
 		<VerticalStackLayout x:DataType="viewModel:VotingPlatformViewModel" HorizontalOptions="Center">
 			<CollectionView ItemsSource="{Binding PollViewModelList}">
 				<CollectionView.ItemTemplate>
@@ -28,8 +34,10 @@
 										<CollectionView.ItemTemplate>
 											<DataTemplate x:DataType="viewModel:VoteOptionViewModel">
 												<VerticalStackLayout>
-													<Border Padding="2">
-														<Button Text="{Binding Text}" BackgroundColor="Transparent"/>
+													<Border Padding="2" Stroke="{Binding IsHighlighted, Converter={StaticResource Voted2ColorConverter}}">
+														<Button Text="{Binding Text}" TextColor="AliceBlue" BackgroundColor="Transparent"
+														        Command="{Binding BindingContext.VotingCommand, Source={x:Reference RootPage}}"
+														        CommandParameter="{Binding .}"/>
 													</Border>
 												</VerticalStackLayout>
 											</DataTemplate>

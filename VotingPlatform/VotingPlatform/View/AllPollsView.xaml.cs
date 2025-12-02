@@ -14,6 +14,7 @@ public partial class AllPollsView : ContentPage
     {
         ViewModel = AppShell.VPVM;
         BindingContext = ViewModel;
+        ViewModel.RefreshHighlights();
         InitializeComponent();
     }
 }

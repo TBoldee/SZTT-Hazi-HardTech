@@ -10,8 +10,6 @@ namespace VotingPlatform.Model
 {
 	public class Poll : ObservableObject
 	{
-		[JsonIgnore]
-		private static int _id = 0;
 		public int Id  { get; set; }
 		public int CreatorId { get; set; }
 		public string Title { get; set; }
@@ -23,10 +21,9 @@ namespace VotingPlatform.Model
 		[JsonIgnore]
 		public List<Vote> Votes { get; set; } = new();
 
-		public Poll(int userId, string title, string description, DateTime closedAt, ObservableCollection<VoteOption> voteOptions)
+		public Poll(int pollId,int userId, string title, string description, DateTime closedAt, ObservableCollection<VoteOption> voteOptions)
 		{
-			Id = _id;
-			_id++;
+			Id = pollId;
 			Title = title;
 			Description = description;
 			CreatedAt = DateTime.Now;

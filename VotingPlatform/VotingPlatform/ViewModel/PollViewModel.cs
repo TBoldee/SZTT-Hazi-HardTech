@@ -15,13 +15,16 @@ public class PollViewModel : ObservableObject
     public PollStatus Status  => Model.Status;
     public ObservableCollection<VoteOptionViewModel> Options { get; set; } = new();
     public List<Vote> Votes { get; set; } = new();
+    public VotingPlatformViewModel Vpvm { get; set; }
 
-    public PollViewModel(Poll poll)
+    public PollViewModel(Poll poll, VotingPlatformViewModel vpvm)
     {
         Model = poll;
+        Vpvm = vpvm;
         foreach (var option in poll.VoteOptions)
         {
-            Options.Add(new VoteOptionViewModel(option));
+            var vovm = new VoteOptionViewModel(option, this);
+            Options.Add(vovm);
         }
     }
 
