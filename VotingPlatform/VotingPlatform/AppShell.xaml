@@ -15,9 +15,9 @@
 	</ShellItem>
 	<TabBar>
 		<ShellContent
-	        Title="Create Poll"
-	        ContentTemplate="{DataTemplate view:CreatePollView}"
-	        Route="CreatePollView" />
+			Title="View Own Polls"
+			ContentTemplate="{DataTemplate view:UserPollsView}"
+			Route="UserPollsView" />
 		<ShellContent
 			Title="View Open Polls"
 			ContentTemplate="{DataTemplate view:OpenPollsView}"
@@ -26,6 +26,10 @@
 			Title="View Closed Polls"
 			ContentTemplate="{DataTemplate view:ClosedPollsView}"
 			Route="ClosedPollsView" />
+		<ShellContent
+			Title="Create Poll"
+			ContentTemplate="{DataTemplate view:CreatePollView}"
+			Route="CreatePollView" />
 	</TabBar>
     
 

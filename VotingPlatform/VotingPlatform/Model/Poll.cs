@@ -24,6 +24,7 @@ namespace VotingPlatform.Model
 		public Poll(int pollId,int userId, string title, string description, DateTime closedAt, ObservableCollection<VoteOption> voteOptions)
 		{
 			Id = pollId;
+			CreatorId = userId;
 			Title = title;
 			Description = description;
 			CreatedAt = DateTime.Now;

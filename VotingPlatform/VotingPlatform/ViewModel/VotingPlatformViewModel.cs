@@ -8,11 +8,23 @@ public class VotingPlatformViewModel : ObservableObject
     public AuthenticationViewModel AuthenticationViewModel { get; set; }
     public PollViewModelList OpenPollList { get; set; }
     public PollViewModelList ClosedPollList { get; set; }
+    public PollViewModelList UserPollList { get; set; } = new();
     public int NextPollId => Model.NextPollId;
     public int NextVoteId => Model.NextVoteId;
     public int NextUserId => Model.NextUserId;
     public Model.VotingPlatform Model { get; set; }
-    public UserViewModel CurrentUser { get; set; }
+    private UserViewModel _currentUser;
+
+    public UserViewModel CurrentUser
+    {
+        get => _currentUser; 
+        set
+        {
+            _currentUser = value;
+            if (value != null) RefreshPolls();
+        }
+    }
+
     public VotingCommand VotingCommand { get; set; }
 
     public VotingPlatformViewModel(Model.VotingPlatform vp)
@@ -37,6 +49,20 @@ public class VotingPlatformViewModel : ObservableObject
                 option.RefreshHighlight();
             }
         }
+        foreach (var pollVm in UserPollList)
+        {
+            foreach (var option in pollVm.Options)
+            {
+                option.RefreshHighlight();
+            }
+        }
+        foreach (var pollVm in ClosedPollList)
+        {
+            foreach (var option in pollVm.Options)
+            {
+                option.RefreshHighlight();
+            }
+        }
     }
 
     public void RefreshPolls()
@@ -44,15 +70,25 @@ public class VotingPlatformViewModel : ObservableObject
         Model.RefreshPollStatuses();
         OpenPollList.Clear();
         ClosedPollList.Clear();
+        UserPollList.Clear();
 
         foreach (var poll in Model.PollList.Where(poll => poll.Status == PollStatus.OPEN))
         {
             OpenPollList.Add(new PollViewModel(poll, this));
+            Notify(nameof(OpenPollList));
         }
 
         foreach (var poll in Model.PollList.Where(poll => poll.Status == PollStatus.CLOSED))
         {
             ClosedPollList.Add(new PollViewModel(poll, this));
+            Notify(nameof(ClosedPollList));
+        }
+
+        if (CurrentUser is null) return;
+        foreach (var poll in Model.PollList.Where(poll => poll.CreatorId == CurrentUser.Id))
+        {
+            UserPollList.Add(new PollViewModel(poll, this));
+            Notify(nameof(UserPollList));
         }
     }
 

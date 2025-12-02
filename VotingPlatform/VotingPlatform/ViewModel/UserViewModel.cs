@@ -22,7 +22,6 @@ public class UserViewModel
 
     public bool HasVotedOnOption(VoteOptionViewModel option)
     {
-        var asd = Vpvm.Model.VoteList.AsParallel().Where(v => v.Option == option.Id).Any(v => v.UserId == Id);
-        return asd;
+        return Vpvm.Model.VoteList.AsParallel().Where(v => v.Option == option.Id).Any(v => v.UserId == Id);
     }
 }
