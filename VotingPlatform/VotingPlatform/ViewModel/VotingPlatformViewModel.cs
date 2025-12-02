@@ -5,6 +5,7 @@ namespace VotingPlatform.ViewModel;
 public class VotingPlatformViewModel : ObservableObject
 {
     public PollCreationViewModel PollCreationViewModel { get; set; }
+    public AuthenticationViewModel AuthenticationViewModel { get; set; }
     public PollViewModelList OpenPollList { get; set; }
     public PollViewModelList ClosedPollList { get; set; }
     public int NextPollId => Model.NextPollId;
@@ -19,6 +20,7 @@ public class VotingPlatformViewModel : ObservableObject
         Model = vp;
         CurrentUser = new UserViewModel(new User("Jani"), this);
         PollCreationViewModel = new PollCreationViewModel(this);
+        AuthenticationViewModel = new AuthenticationViewModel(this);
         OpenPollList = new PollViewModelList();
         ClosedPollList = new PollViewModelList();
         RefreshPolls();
