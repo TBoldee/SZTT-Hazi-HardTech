@@ -58,7 +58,7 @@ public class PollCreationViewModel : ObservableObject
         if (ValidatePollDetails())
         {
             var newPoll = new Poll(Vpvm.NextPollId,Vpvm.CurrentUser.Id, Title, Description, ClosedAt, Options);
-            Vpvm.PollViewModelList.Add(new PollViewModel(newPoll, Vpvm));
+            Vpvm.OpenPollList.Add(new PollViewModel(newPoll, Vpvm));
             Vpvm.Model.PollList.Add(newPoll);
             DataSerializer.SerializeVotingPlatform(Vpvm.Model);
             ResetAllFields();

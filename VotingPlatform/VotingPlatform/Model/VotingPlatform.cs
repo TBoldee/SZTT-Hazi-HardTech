@@ -19,11 +19,16 @@ namespace VotingPlatform.Model
 		public int NextPollId => ++lastPollId;
 		public List<Vote> VoteList { get; set; } = new();
 		[JsonInclude]
-		public int lastVoteId = 0;
+		private int lastVoteId = 0;
 		[JsonIgnore]
 		public int NextVoteId => ++lastVoteId;
 		[JsonIgnore]
 		public Dictionary<string, string> UserDictionary { get; set; } = new(); //username,hash
+
+		[JsonInclude]
+		private int lastUserId = 0;
+		[JsonIgnore]
+		public int NextUserId => ++lastUserId;
 		
 		[OnDeserialized]
 		internal void InitializeRelations()
