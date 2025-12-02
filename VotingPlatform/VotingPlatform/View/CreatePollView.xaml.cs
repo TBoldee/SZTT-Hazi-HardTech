@@ -14,6 +14,18 @@ public partial class CreatePollView : ContentPage
     {
         this.ViewModel = AppShell.VPVM.PollCreationViewModel;
         BindingContext = this.ViewModel;
+        ViewModel.CreationFailed += DisplayFail;
+        ViewModel.CreationSucceeded += DisplaySuccess;
         InitializeComponent();
+    }
+
+    public async void DisplayFail()
+    {
+        await DisplayAlert("Invalid poll", "Make sure all fields are filled, and no two options are the same.", "Ok");
+    }
+
+    public async void DisplaySuccess()
+    {
+        await DisplayAlert("Success", "", "Ok");
     }
 }

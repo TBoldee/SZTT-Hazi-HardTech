@@ -14,6 +14,8 @@ public class PollCreationViewModel : ObservableObject
     public VotingPlatformViewModel Vpvm { get; set; }
     public Command CreatePollCommand { get; set; }
     public Command AddOptionCommand { get; set; }
+    public event Action? CreationFailed;
+    public event Action? CreationSucceeded;
 
     public PollCreationViewModel(VotingPlatformViewModel vp)
     {
@@ -25,15 +27,7 @@ public class PollCreationViewModel : ObservableObject
     public bool ValidatePollDetails()
     {
         var re = new Regex("""^\s*$""");
-        bool optionsInvalid = false;
-        foreach (var opt in Options)
-        {
-            if (re.IsMatch(opt.Text))
-            {
-                optionsInvalid = true;
-                break;
-            }
-        }
+        bool optionsInvalid = Options.Any(opt => re.IsMatch(opt.Text));
         var allOptionTexts = Options.Select(opt => opt.Text);
         if (allOptionTexts.Count() != allOptionTexts.Distinct().Count()) optionsInvalid = true;
 
@@ -41,7 +35,7 @@ public class PollCreationViewModel : ObservableObject
             re.IsMatch(Description) ||
             optionsInvalid)
         {
-            Application.Current.MainPage.DisplayAlert("Invalid poll", "Make sure all fields are filled, and no two options are the same.", "Ok");
+            CreationFailed?.Invoke();
             return false;
         }
         return true;
@@ -62,7 +56,7 @@ public class PollCreationViewModel : ObservableObject
             Vpvm.Model.PollList.Add(newPoll);
             DataSerializer.SerializeVotingPlatform(Vpvm.Model);
             ResetAllFields();
-            Application.Current.MainPage.DisplayAlert("Success", "", "Ok");
+            CreationSucceeded?.Invoke();
         }
     }
     private void ResetAllFields()
