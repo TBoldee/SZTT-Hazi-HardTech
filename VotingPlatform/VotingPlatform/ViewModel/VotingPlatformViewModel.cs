@@ -1,4 +1,5 @@
-﻿using VotingPlatform.Model;
+﻿using System.Collections.ObjectModel;
+using VotingPlatform.Model;
 
 namespace VotingPlatform.ViewModel;
 
@@ -8,7 +9,8 @@ public class VotingPlatformViewModel : ObservableObject
     public AuthenticationViewModel AuthenticationViewModel { get; set; }
     public PollViewModelList OpenPollList { get; set; }
     public PollViewModelList ClosedPollList { get; set; }
-    public PollViewModelList UserPollList { get; set; } = new();
+    public PollViewModelList UserPollList { get; set; }
+    public ObservableCollection<UserViewModel> UserViewModelList { get; set; }
     public int NextPollId => Model.NextPollId;
     public int NextVoteId => Model.NextVoteId;
     public int NextUserId => Model.NextUserId;
@@ -35,8 +37,11 @@ public class VotingPlatformViewModel : ObservableObject
         AuthenticationViewModel = new AuthenticationViewModel(this);
         OpenPollList = new PollViewModelList();
         ClosedPollList = new PollViewModelList();
+        UserPollList = new PollViewModelList();
+        UserViewModelList = new ObservableCollection<UserViewModel>();
         RefreshPolls();
         RefreshHighlights();
+        RefreshUserViewModelList();
         VotingCommand = new VotingCommand(this);
     }
 
@@ -112,6 +117,7 @@ public class VotingPlatformViewModel : ObservableObject
     {
         if (Model.Register(username, password))
         {
+            RefreshUserViewModelList();
             return true;
         }
         return false;
@@ -120,5 +126,14 @@ public class VotingPlatformViewModel : ObservableObject
     public bool CheckIfUserExists(string username)
     {
         return Model.CheckIfUserExists(username);
+    }
+
+    public void RefreshUserViewModelList()
+    {
+        UserViewModelList.Clear();
+        foreach (var user in Model.UserList)
+        {
+            UserViewModelList.Add(new UserViewModel(user, this));
+        }
     }
 }

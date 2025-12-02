@@ -25,7 +25,7 @@ public class VotingCommand :ICommand
             var newVote = new Vote(Vpvm.NextVoteId, Vpvm.CurrentUser.Id, option.Poll.Id, option.Id);
             Vpvm.Model.VoteList.Add(newVote);
             Vpvm.Model.PollList.First(p => p.Id == option.Poll.Id).AddVote(newVote);
-            option.RefreshHighlight();
+            Vpvm.RefreshHighlights();
             DataSerializer.SerializeVotingPlatform(Vpvm.Model);
         }
     }

@@ -7,6 +7,7 @@ public class UserViewModel
     public User Model {get; set;}
     public VotingPlatformViewModel Vpvm { get; set; }
     public int Id => Model.Id;
+    public string Name => Model.Name;
 
     public UserViewModel(User user, VotingPlatformViewModel vpvm)
     {

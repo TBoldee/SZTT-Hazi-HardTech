@@ -7,14 +7,13 @@ using VotingPlatform.ViewModel;
 
 namespace VotingPlatform.View;
 
-public partial class AllPollsView : ContentPage
+public partial class UserListView : ContentPage
 {
     public VotingPlatformViewModel ViewModel {get;set;}
-    public AllPollsView()
+    public UserListView()
     {
         ViewModel = AppShell.VPVM;
         BindingContext = ViewModel;
-        ViewModel.RefreshHighlights();
         InitializeComponent();
     }
 }

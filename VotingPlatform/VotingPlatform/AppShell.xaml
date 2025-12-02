@@ -13,7 +13,7 @@
 			 ContentTemplate="{DataTemplate view:LogInView}"
 			 Route="LogInView" />
 	</ShellItem>
-	<TabBar>
+	<TabBar x:Name="MainTabs">
 		<ShellContent
 			Title="View Own Polls"
 			ContentTemplate="{DataTemplate view:UserPollsView}"
@@ -30,6 +30,10 @@
 			Title="Create Poll"
 			ContentTemplate="{DataTemplate view:CreatePollView}"
 			Route="CreatePollView" />
+		<ShellContent x:Name="UserList"
+			Title="User List"
+			ContentTemplate="{DataTemplate view:UserListView}"
+			Route="UserListView" />
 	</TabBar>
     
 

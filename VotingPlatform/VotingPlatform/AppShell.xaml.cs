@@ -9,6 +9,6 @@ namespace VotingPlatform
         public AppShell()
         {
             InitializeComponent();
-        }
+		}
     }
 }
