@@ -18,7 +18,7 @@ public class VotingPlatformViewModel : ObservableObject
     public VotingPlatformViewModel(Model.VotingPlatform vp)
     {
         Model = vp;
-        CurrentUser = new UserViewModel(new User("Jani"), this);
+        CurrentUser = null;
         PollCreationViewModel = new PollCreationViewModel(this);
         AuthenticationViewModel = new AuthenticationViewModel(this);
         OpenPollList = new PollViewModelList();
@@ -54,5 +54,35 @@ public class VotingPlatformViewModel : ObservableObject
         {
             ClosedPollList.Add(new PollViewModel(poll, this));
         }
+    }
+
+    public bool FirstRun()
+    {
+        if (Model.UserDictionary.Count == 0) return true;
+        return false;
+    }
+
+    public bool TryLogIn(string username, string password)
+    {
+        if (Model.LogIn(username, password))
+        {
+            CurrentUser = new UserViewModel(Model.GetUser(username), this);
+            return true;
+        }
+        return false;
+    }
+
+    public bool TryRegister(string username, string password)
+    {
+        if (Model.Register(username, password))
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public bool CheckIfUserExists(string username)
+    {
+        return Model.CheckIfUserExists(username);
     }
 }

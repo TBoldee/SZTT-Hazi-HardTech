@@ -24,7 +24,7 @@ public class PollCreationViewModel : ObservableObject
         AddOptionCommand = new Command(AddOption);
         Vpvm = vp;
     }
-    public bool ValidatePollDetails()
+    private bool ValidatePollDetails()
     {
         var re = new Regex("""^\s*$""");
         bool optionsInvalid = Options.Any(opt => re.IsMatch(opt.Text));
@@ -41,13 +41,13 @@ public class PollCreationViewModel : ObservableObject
         return true;
     }
 
-    public void AddOption()
+    private void AddOption()
     {
         Options.Add(new VoteOption(""));
         Notify(nameof(Options));
     }
 
-    public void CreatePoll()
+    private void CreatePoll()
     {
         if (ValidatePollDetails())
         {

@@ -6,6 +6,7 @@
              xmlns:viewModel="clr-namespace:VotingPlatform.ViewModel"
 			 xmlns:model="clr-namespace:VotingPlatform.Model"
              Title="">
+    
     <ContentPage.Content>
         <ScrollView>
             <VerticalStackLayout x:DataType="viewModel:PollCreationViewModel" Spacing="5" Padding="5" HorizontalOptions="Center" >

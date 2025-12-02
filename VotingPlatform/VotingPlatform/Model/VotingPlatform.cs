@@ -29,8 +29,12 @@ namespace VotingPlatform.Model
 		private int lastUserId = 0;
 		[JsonIgnore]
 		public int NextUserId => ++lastUserId;
-		
-		[OnDeserialized]
+
+		[JsonConstructor]
+		public VotingPlatform()
+		{
+			InitializeRelations();
+		}
 		internal void InitializeRelations()
 		{
 			UserDictionary = DataSerializer.DeserializeUserDict();
@@ -40,7 +44,7 @@ namespace VotingPlatform.Model
 		{
 			foreach (var kvp in UserDictionary)
 			{
-				if (kvp.Key.Equals(username) && HashPassword(kvp.Value).Equals(password)) return true;
+				if (kvp.Key.Equals(username) && HashPassword(password).Equals(kvp.Value)) return true;
 			}
 			return false;
 		}
@@ -52,6 +56,7 @@ namespace VotingPlatform.Model
 			{
 				var hash = HashPassword(password);
 				UserDictionary.Add(username, hash);
+				UserList.Add(new User(NextUserId, username));
 				DataSerializer.SerializeUserDict(UserDictionary);
 				return true;
 			}
@@ -81,6 +86,16 @@ namespace VotingPlatform.Model
 			{
 				if (poll.ClosedAt < DateTime.Now) poll.Status = PollStatus.CLOSED;
 			}
+		}
+
+		public User GetUser(string username)
+		{
+			return UserList.Where(u => u.Name.Equals(username)).FirstOrDefault();
+		}
+
+		public bool CheckIfUserExists(string username)
+		{
+			return UserList.Any(u => u.Name.Equals(username));
 		}
 	}
 }

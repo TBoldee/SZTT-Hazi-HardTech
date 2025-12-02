@@ -8,15 +8,18 @@ namespace VotingPlatform.Model
 {
 	public class User : ObservableObject
 	{
-		private static int _id = 0;
 		public int Id { get;  set; }
 		public string Name { get; set; }
 
-		public User(string name)
+		public User(int userId,string name)
 		{
-			Id = _id;
-			_id++;
+			Id = userId;
 			Name = name;
+		}
+
+		public User()
+		{
+			
 		}
 	}
 }
