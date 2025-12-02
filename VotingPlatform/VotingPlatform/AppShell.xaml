@@ -19,9 +19,13 @@
 	        ContentTemplate="{DataTemplate view:CreatePollView}"
 	        Route="CreatePollView" />
 		<ShellContent
-			Title="View All Polls"
-			ContentTemplate="{DataTemplate view:AllPollsView}"
-			Route="AllPollsView" />
+			Title="View Open Polls"
+			ContentTemplate="{DataTemplate view:OpenPollsView}"
+			Route="OpenPollsView" />
+		<ShellContent
+			Title="View Closed Polls"
+			ContentTemplate="{DataTemplate view:ClosedPollsView}"
+			Route="ClosedPollsView" />
 	</TabBar>
     
 

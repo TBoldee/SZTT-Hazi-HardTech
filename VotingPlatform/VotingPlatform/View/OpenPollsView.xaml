@@ -2,13 +2,13 @@
 
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="VotingPlatform.View.AllPollsView"
+             x:Class="VotingPlatform.View.OpenPollsView"
              xmlns:viewModel="clr-namespace:VotingPlatform.ViewModel"
              xmlns:model="clr-namespace:VotingPlatform.Model"
              xmlns:view="clr-namespace:VotingPlatform.View"
              x:Name="RootPage"
              Title="">
-	<ContentPage.Resources>
+    <ContentPage.Resources>
 		<view:Voted2ColorConverter x:Key="Voted2ColorConverter"/>
 	</ContentPage.Resources>
 	
@@ -52,5 +52,4 @@
             </CollectionView>
         </Grid>
     </ContentPage.Content>
-
 </ContentPage>
