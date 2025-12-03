@@ -10,6 +10,8 @@
              Title="">
     <ContentPage.Resources>
 		<view:Voted2ColorConverter x:Key="Voted2ColorConverter"/>
+        <view:Closed2BoolConverter x:Key="Closed2BoolConverter"/>
+        <view:Closed2ColorConverter x:Key="Closed2ColorConverter"/>
 	</ContentPage.Resources>
 	
 	<ContentPage.Content>
@@ -19,7 +21,9 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="viewModel:PollViewModel">
                         <VerticalStackLayout>
-                            <Border WidthRequest="700" Margin="20" Padding="2">
+                            <Button Text="Close poll" Command="{Binding BindingContext.ClosePollCommand ,Source={x:Reference RootPage}}"
+                                    CommandParameter="{Binding .}" WidthRequest="100" IsVisible="{Binding Status, Converter={StaticResource Closed2BoolConverter}}"/>
+                            <Border WidthRequest="700" Margin="20" Padding="2" Stroke="{Binding Status, Converter={StaticResource Closed2ColorConverter}}">
                                 <VerticalStackLayout>
                                     <Label Text="{Binding Title}" FontSize="35" HorizontalOptions="Center"/>
                                     <Label Text="{Binding Description}" FontSize="20"/>

@@ -112,5 +112,10 @@ namespace VotingPlatform.Model
 			BanDictionary.Remove(userId);
 			DataSerializer.SerializeBanDict(BanDictionary);
 		}
+
+		public void ClosePoll(Poll poll)
+		{
+			PollList.First(p => p == poll).ClosePoll();
+		}
 	}
 }

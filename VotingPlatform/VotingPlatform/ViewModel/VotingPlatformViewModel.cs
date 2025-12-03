@@ -29,6 +29,7 @@ public class VotingPlatformViewModel : ObservableObject
 
     public VotingCommand VotingCommand { get; set; }
     public BanCommand BanCommand { get; set; }
+    public Command ClosePollCommand { get; set; }
 
     public VotingPlatformViewModel(Model.VotingPlatform vp)
     {
@@ -45,6 +46,7 @@ public class VotingPlatformViewModel : ObservableObject
         RefreshUserViewModelList();
         VotingCommand = new VotingCommand(this);
         BanCommand = new BanCommand(this);
+        ClosePollCommand = new Command<PollViewModel>(param => ClosePoll(param));
     }
 
     public void RefreshHighlights()
@@ -141,10 +143,12 @@ public class VotingPlatformViewModel : ObservableObject
         }
     }
 
-    public void BanUser(int userId)
-    {
-        Model.BanUser(userId);
-        
-    }
+    public void BanUser(int userId) => Model.BanUser(userId);
     public void UnbanUser(int userId) => Model.UnbanUser(userId);
+
+    public void ClosePoll(PollViewModel poll)
+    {
+        Model.ClosePoll(poll.Model);
+        RefreshPolls();
+    }
 }

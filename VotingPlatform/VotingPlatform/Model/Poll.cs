@@ -38,5 +38,11 @@ namespace VotingPlatform.Model
 		{
 			Votes.Add(vote);
 		}
+
+		public void ClosePoll()
+		{
+			ClosedAt = DateTime.Now;
+			Status = PollStatus.CLOSED;
+		}
 	}
 }
