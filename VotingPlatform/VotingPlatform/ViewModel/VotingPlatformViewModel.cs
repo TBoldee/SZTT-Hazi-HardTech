@@ -32,6 +32,7 @@ public class VotingPlatformViewModel : ObservableObject
     public BanCommand BanCommand { get; set; }
     public Command ClosePollCommand { get; set; }
     public Command<PollViewModel> EditPollCommand { get; set; }
+    public Command<PollViewModel> DeletePollCommand { get; set; }
     public event Action? EditClicked;
 
     public VotingPlatformViewModel(Model.VotingPlatform vp)
@@ -52,6 +53,7 @@ public class VotingPlatformViewModel : ObservableObject
         BanCommand = new BanCommand(this);
         ClosePollCommand = new Command<PollViewModel>(param => ClosePoll(param));
         EditPollCommand = new Command<PollViewModel>(param => EditPoll(param));
+        DeletePollCommand = new Command<PollViewModel>(param => DeletePoll(param));
     }
 
     public void RefreshHighlights()
@@ -175,5 +177,11 @@ public class VotingPlatformViewModel : ObservableObject
     {
         EditClicked?.Invoke();
         PollEditViewModel.Load(poll);
+    }
+
+    private void DeletePoll(PollViewModel poll)
+    {
+        Model.DeletePoll(poll.Model);
+        RefreshPolls();
     }
 }

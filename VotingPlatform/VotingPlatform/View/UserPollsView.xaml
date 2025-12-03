@@ -27,6 +27,8 @@
                                 <Button Text="Edit poll" Command="{Binding BindingContext.EditPollCommand ,Source={x:Reference RootPage}}"
                                         CommandParameter="{Binding .}" WidthRequest="100" />
                             </HorizontalStackLayout>
+                            <Button Text="Delete poll" Command="{Binding BindingContext.DeletePollCommand ,Source={x:Reference RootPage}}"
+                                    CommandParameter="{Binding .}" WidthRequest="100" />
                             <Border WidthRequest="700" Margin="20" Padding="2" Stroke="{Binding Status, Converter={StaticResource Closed2ColorConverter}}">
                                 <VerticalStackLayout>
                                     <Label Text="{Binding Title}" FontSize="35" HorizontalOptions="Center"/>

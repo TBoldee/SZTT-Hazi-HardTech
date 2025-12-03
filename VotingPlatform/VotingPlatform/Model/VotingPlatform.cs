@@ -132,5 +132,16 @@ namespace VotingPlatform.Model
 		{
 			PollList.First(p => p == poll).ClosePoll();
 		}
+
+		public void DeletePoll(Poll poll)
+		{
+			PollList.Remove(poll);
+			var votes = VoteList.Where(v => v.PollId == poll.Id).ToList();
+			foreach (var vote in votes)
+			{
+				VoteList.Remove(vote);
+			}
+			DataSerializer.SerializeVotingPlatform(this);
+		}
 	}
 }
