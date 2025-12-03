@@ -14,14 +14,17 @@ public class PollCreationViewModel : ObservableObject
     public VotingPlatformViewModel Vpvm { get; set; }
     public Command CreatePollCommand { get; set; }
     public Command AddOptionCommand { get; set; }
+    public Command<VoteOptionViewModel> RemoveOptionCommand {get; set; }
     public event Action? CreationFailed;
     public event Action? CreationSucceeded;
+
 
     public PollCreationViewModel(VotingPlatformViewModel vp)
     {
         ResetAllFields();
         CreatePollCommand = new Command(CreatePoll);
         AddOptionCommand = new Command(AddOption);
+        RemoveOptionCommand = new Command<VoteOptionViewModel>(param => RemoveOption(param));
         Vpvm = vp;
     }
     private bool ValidatePollDetails()
@@ -83,5 +86,10 @@ public class PollCreationViewModel : ObservableObject
         var banned = Vpvm.CurrentUser.Banned;
         if (banned) CreationFailed?.Invoke();
         return banned;
+    }
+
+    private void RemoveOption(VoteOptionViewModel option)
+    {
+        
     }
 }

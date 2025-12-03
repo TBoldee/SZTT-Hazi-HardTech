@@ -46,7 +46,7 @@ namespace VotingPlatform.Model
 			var sb = new StringBuilder();
 			foreach (var kvp in banDict)
 			{
-				sb.AppendLine($"{kvp.Key}:{kvp.Value:O}");
+				sb.AppendLine($"{kvp.Key} | {kvp.Value:O}");
 			}
 			File.WriteAllText("BanDict.txt", sb.ToString());
 		}

@@ -24,6 +24,7 @@ namespace VotingPlatform.Model
 		public int NextVoteId => ++lastVoteId;
 		[JsonIgnore]
 		public Dictionary<string, string> UserDictionary { get; set; } = new(); //username,hash
+		[JsonIgnore]
 		public Dictionary<int, DateTime> BanDictionary { get; set; } = new();
 
 		[JsonInclude]
