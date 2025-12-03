@@ -7,6 +7,7 @@ public class VotingPlatformViewModel : ObservableObject
 {
     public PollCreationViewModel PollCreationViewModel { get; set; }
     public AuthenticationViewModel AuthenticationViewModel { get; set; }
+    public PollEditViewModel PollEditViewModel { get; set; }
     public PollViewModelList OpenPollList { get; set; }
     public PollViewModelList ClosedPollList { get; set; }
     public PollViewModelList UserPollList { get; set; }
@@ -30,6 +31,8 @@ public class VotingPlatformViewModel : ObservableObject
     public VotingCommand VotingCommand { get; set; }
     public BanCommand BanCommand { get; set; }
     public Command ClosePollCommand { get; set; }
+    public Command<PollViewModel> EditPollCommand { get; set; }
+    public event Action? EditClicked;
 
     public VotingPlatformViewModel(Model.VotingPlatform vp)
     {
@@ -37,6 +40,7 @@ public class VotingPlatformViewModel : ObservableObject
         CurrentUser = null;
         PollCreationViewModel = new PollCreationViewModel(this);
         AuthenticationViewModel = new AuthenticationViewModel(this);
+        PollEditViewModel = new PollEditViewModel(this);
         OpenPollList = new PollViewModelList();
         ClosedPollList = new PollViewModelList();
         UserPollList = new PollViewModelList();
@@ -47,6 +51,7 @@ public class VotingPlatformViewModel : ObservableObject
         VotingCommand = new VotingCommand(this);
         BanCommand = new BanCommand(this);
         ClosePollCommand = new Command<PollViewModel>(param => ClosePoll(param));
+        EditPollCommand = new Command<PollViewModel>(param => EditPoll(param));
     }
 
     public void RefreshHighlights()
@@ -164,5 +169,11 @@ public class VotingPlatformViewModel : ObservableObject
     {
         Model.ClosePoll(poll.Model);
         RefreshPolls();
+    }
+
+    public void EditPoll(PollViewModel poll)
+    {
+        EditClicked?.Invoke();
+        PollEditViewModel.Load(poll);
     }
 }

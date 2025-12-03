@@ -13,6 +13,12 @@
 			 ContentTemplate="{DataTemplate view:LogInView}"
 			 Route="LogInView" />
 	</ShellItem>
+	<ShellItem>
+		<ShellContent
+			Title="Edit"
+			ContentTemplate="{DataTemplate view:EditPollView}"
+			Route="EditPollView" />
+	</ShellItem>
 	<TabBar x:Name="MainTabs">
 		<ShellContent
 			Title="View Own Polls"

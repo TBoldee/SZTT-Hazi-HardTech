@@ -15,7 +15,13 @@ public partial class UserPollsView : ContentPage
     {
         ViewModel = AppShell.VPVM;
         BindingContext = ViewModel;
+        ViewModel.EditClicked += MoveToEditor;
         ViewModel.RefreshHighlights();
         InitializeComponent();
+    }
+    
+    public async void MoveToEditor()
+    {
+        await Shell.Current.GoToAsync("//"+nameof(EditPollView));
     }
 }

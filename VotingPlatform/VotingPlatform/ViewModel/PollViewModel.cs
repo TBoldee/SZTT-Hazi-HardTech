@@ -8,12 +8,41 @@ public class PollViewModel : ObservableObject
     public Poll Model { get; set; }
     public int Id => Model.Id;
     public int CreatorId => Model.CreatorId;
-    public string Title => Model.Title;
-    public string Description => Model.Description;
+
+    public string Title
+    {
+        get => Model.Title;
+        set
+        {
+            Model.Title = value;
+            Notify();
+        }
+    }
+    public string Description
+    {
+        get => Model.Description;
+        set
+        {
+            Model.Description = value;
+            Notify();
+        }
+    }
     public DateTime CreatedAt => Model.CreatedAt;
     public DateTime ClosedAt => Model.ClosedAt;
     public PollStatus Status  => Model.Status;
-    public ObservableCollection<VoteOptionViewModel> Options { get; set; } = new();
+    private ObservableCollection<VoteOptionViewModel> _options = new();
+
+    public ObservableCollection<VoteOptionViewModel> Options
+    {
+        get => _options;
+        set
+        {
+            if (value.Count == 0) return;
+            _options = value;
+            Model.VoteOptions.Clear();
+            foreach (var option in _options) Model.VoteOptions.Add(option.Model);
+        }
+    }
     public List<Vote> Votes { get; set; } = new();
     public VotingPlatformViewModel Vpvm { get; set; }
 
@@ -27,10 +56,15 @@ public class PollViewModel : ObservableObject
             Options.Add(vovm);
         }
     }
-
     public void AddVote(Vote vote)
     {
         Model.AddVote(vote);
         Notify();
+    }
+    public void NotifyAllPropertiesChanged()
+    {
+        Notify(nameof(Title));
+        Notify(nameof(Description));
+        Notify(nameof(Options));
     }
 }

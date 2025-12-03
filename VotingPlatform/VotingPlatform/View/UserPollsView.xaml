@@ -21,10 +21,10 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="viewModel:PollViewModel">
                         <VerticalStackLayout>
-                            <HorizontalStackLayout IsVisible="{Binding Status, Converter={StaticResource Closed2BoolConverter}}">
+                            <HorizontalStackLayout Spacing="5" IsVisible="{Binding Status, Converter={StaticResource Closed2BoolConverter}}" HorizontalOptions="Center">
                                 <Button Text="Close poll" Command="{Binding BindingContext.ClosePollCommand ,Source={x:Reference RootPage}}"
                                         CommandParameter="{Binding .}" WidthRequest="100" />
-                                <Button Text="Edit poll" Command="{Binding BindingContext.ClosePollCommand ,Source={x:Reference RootPage}}"
+                                <Button Text="Edit poll" Command="{Binding BindingContext.EditPollCommand ,Source={x:Reference RootPage}}"
                                         CommandParameter="{Binding .}" WidthRequest="100" />
                             </HorizontalStackLayout>
                             <Border WidthRequest="700" Margin="20" Padding="2" Stroke="{Binding Status, Converter={StaticResource Closed2ColorConverter}}">
@@ -42,13 +42,14 @@
                                     <StackLayout BindableLayout.ItemsSource="{Binding Options}">
                                         <BindableLayout.ItemTemplate>
                                             <DataTemplate x:DataType="viewModel:VoteOptionViewModel">
-                                                <VerticalStackLayout>
-                                                    <Border Padding="2" Stroke="{Binding IsHighlighted, Converter={StaticResource Voted2ColorConverter}}">
-                                                        <Button Text="{Binding Text}" TextColor="AliceBlue" BackgroundColor="Transparent"
+                                                <Border Padding="2" Stroke="{Binding IsHighlighted, Converter={StaticResource Voted2ColorConverter}}">
+                                                    <Grid ColumnDefinitions="Auto, *">
+                                                        <Label Grid.Column="0" Text="{Binding VoteCount}" HorizontalOptions="Start" VerticalOptions="Center"/>
+                                                        <Button Grid.Column="1" Text="{Binding Text}" TextColor="AliceBlue" BackgroundColor="Transparent"
                                                                 Command="{Binding BindingContext.VotingCommand, Source={x:Reference RootPage}}"
-                                                                CommandParameter="{Binding .}"/>
-                                                    </Border>
-                                                </VerticalStackLayout>
+                                                                CommandParameter="{Binding .}" HorizontalOptions="FillAndExpand"/>
+                                                    </Grid>
+                                                </Border>
                                             </DataTemplate>
                                         </BindableLayout.ItemTemplate>
                                     </StackLayout>

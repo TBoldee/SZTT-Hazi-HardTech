@@ -35,13 +35,14 @@
                                     <StackLayout BindableLayout.ItemsSource="{Binding Options}">
                                         <BindableLayout.ItemTemplate>
                                             <DataTemplate x:DataType="viewModel:VoteOptionViewModel">
-                                                <VerticalStackLayout>
-                                                    <Border Padding="2" Stroke="{Binding IsHighlighted, Converter={StaticResource Voted2ColorConverter}}">
-                                                        <Button Text="{Binding Text}" TextColor="AliceBlue" BackgroundColor="Transparent"
+                                                <Border Padding="2" Stroke="{Binding IsHighlighted, Converter={StaticResource Voted2ColorConverter}}">
+                                                    <Grid ColumnDefinitions="Auto, *">
+                                                        <Label Grid.Column="0" Text="{Binding VoteCount}" HorizontalOptions="Start" VerticalOptions="Center"/>
+                                                        <Button Grid.Column="1" Text="{Binding Text}" TextColor="AliceBlue" BackgroundColor="Transparent"
                                                                 Command="{Binding BindingContext.VotingCommand, Source={x:Reference RootPage}}"
-                                                                CommandParameter="{Binding .}"/>
-                                                    </Border>
-                                                </VerticalStackLayout>
+                                                                CommandParameter="{Binding .}" HorizontalOptions="FillAndExpand"/>
+                                                    </Grid>
+                                                </Border>
                                             </DataTemplate>
                                         </BindableLayout.ItemTemplate>
                                     </StackLayout>

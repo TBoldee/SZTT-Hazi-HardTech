@@ -16,7 +16,7 @@ public partial class LogInView : ContentPage
 		InitializeComponent();
 	}
 
-	public async void LoggedInSuccessfully()
+	private async void LoggedInSuccessfully()
 	{
 		if (ViewModel.Vpvm.CurrentUser.Id != 1)
 		{
@@ -26,16 +26,16 @@ public partial class LogInView : ContentPage
 		await Shell.Current.GoToAsync("//"+nameof(OpenPollsView));
 	}
 
-	public async void RegisteredSuccessfully()
+	private async void RegisteredSuccessfully()
 	{
 		await DisplayAlert("Registration Successful", "", "Ok");
 	}
 
-	public async void RegistrationFailed()
+	private async void RegistrationFailed()
 	{
 		await DisplayAlert("Registration Failed", "", "Ok");
 	}
-	public async void BannedLogin(DateTime? time)
+	private async void BannedLogin(DateTime? time)
 	{
 		await DisplayAlert("You are currently banned!", $"You are banned until: {time}", "Ok");
 	}
