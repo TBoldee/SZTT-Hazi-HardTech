@@ -10,6 +10,7 @@
              Title="">
     <ContentPage.Resources>
 		<view:Voted2ColorConverter x:Key="Voted2ColorConverter"/>
+        <view:Closed2ColorConverter x:Key="Closed2ColorConverter"/>
 	</ContentPage.Resources>
 	
 	<ContentPage.Content>
@@ -19,7 +20,7 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="viewModel:PollViewModel">
                         <VerticalStackLayout>
-                            <Border WidthRequest="700" Margin="20" Padding="2" Stroke="Red">
+                            <Border WidthRequest="700" Margin="20" Padding="2" Stroke="{Binding Status, Converter={StaticResource Closed2ColorConverter}}">
                                 <VerticalStackLayout>
                                     <Label Text="{Binding Title}" FontSize="35" HorizontalOptions="Center"/>
                                     <Label Text="{Binding Description}" FontSize="20"/>

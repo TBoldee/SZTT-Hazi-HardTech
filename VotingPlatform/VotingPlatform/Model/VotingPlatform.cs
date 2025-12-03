@@ -13,11 +13,11 @@ namespace VotingPlatform.Model
 	{
 		public List<User> UserList { get; set; } = new();
 		public List<Poll> PollList { get; set; } = new();
+		public List<Vote> VoteList { get; set; } = new();
 		[JsonInclude]
 		private int lastPollId = 0;
 		[JsonIgnore]
 		public int NextPollId => ++lastPollId;
-		public List<Vote> VoteList { get; set; } = new();
 		[JsonInclude]
 		private int lastVoteId = 0;
 		[JsonIgnore]
@@ -33,9 +33,20 @@ namespace VotingPlatform.Model
 		public int NextUserId => ++lastUserId;
 
 		[JsonConstructor]
+		public VotingPlatform(List<User> userlist, List<Poll> polllist, List<Vote> votelist, int lastpollId, int lastvoteid, int lastuserid)
+		{
+			UserList = userlist;
+			PollList = polllist;
+			VoteList = votelist;
+			lastPollId = lastpollId;
+			lastVoteId = lastvoteid;
+			lastUserId = lastuserid;
+			InitializeRelations();
+		}
+
 		public VotingPlatform()
 		{
-			InitializeRelations();
+			
 		}
 		internal void InitializeRelations()
 		{
@@ -78,8 +89,11 @@ namespace VotingPlatform.Model
 			{
 				foreach (var poll in PollList)
 				{
-					if (vote.PollId == poll.Id) poll.AddVote(vote);
-					break;
+					if (vote.PollId == poll.Id)
+					{
+						poll.AddVote(vote);
+						break;
+					}
 				}
 			}
 		}

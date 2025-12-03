@@ -56,6 +56,7 @@ public class VotingPlatformViewModel : ObservableObject
             foreach (var option in pollVm.Options)
             {
                 option.RefreshHighlight();
+                option.RefreshVoteCount();
             }
         }
         foreach (var pollVm in UserPollList)
@@ -63,6 +64,7 @@ public class VotingPlatformViewModel : ObservableObject
             foreach (var option in pollVm.Options)
             {
                 option.RefreshHighlight();
+                option.RefreshVoteCount();
             }
         }
         foreach (var pollVm in ClosedPollList)
@@ -70,6 +72,7 @@ public class VotingPlatformViewModel : ObservableObject
             foreach (var option in pollVm.Options)
             {
                 option.RefreshHighlight();
+                option.RefreshVoteCount();
             }
         }
     }

@@ -8,6 +8,7 @@ public class VoteOptionViewModel : ObservableObject
     public PollViewModel Poll {get; set;}
     public int Id => Model.Id;
     public string Text => Model.Text;
+    public int VoteCount => Poll.Model.Votes.Count(v => v.Option == Id);
 
     public bool IsHighlighted
     {
@@ -27,5 +28,10 @@ public class VoteOptionViewModel : ObservableObject
     {
         Model = model;
         Poll = poll;
+    }
+
+    public void RefreshVoteCount()
+    {
+        Notify(nameof(VoteCount));
     }
 }
