@@ -19,10 +19,10 @@
 						<Border>
 							<HorizontalStackLayout Padding="10" Spacing="10">
 								<Label Text="{Binding Name}" FontSize="20"/>
-								<Label Text="-"/>
+								<Label Text="-" FontSize="20"/>
 								<Label Text="{Binding Id}" FontSize="20"/>
-								<Label Text="-"/>
-								<Label Text="{Binding Banned, Converter={view:Banned2TextConverter}}"/>
+								<Label Text="-" FontSize="20"/>
+								<Label Text="{Binding Banned, Converter={view:Banned2TextConverter}}" FontSize="20"/>
 								<Button Text="Ban" HeightRequest="35" MinimumHeightRequest="35" IsVisible="{Binding Unbanned}"
 								        Command="{Binding BindingContext.BanCommand, Source={x:Reference RootPage}}" CommandParameter="{Binding .}"/>
 								<Button Text="Unban" HeightRequest="35" MinimumHeightRequest="35" IsVisible="{Binding Banned}"
