@@ -94,10 +94,21 @@ public class VotingPlatformViewModel : ObservableObject
         }
 
         if (CurrentUser is null) return;
-        foreach (var poll in Model.PollList.Where(poll => poll.CreatorId == CurrentUser.Id))
+        if (CurrentUser.Id == 1) //ha admin
         {
-            UserPollList.Add(new PollViewModel(poll, this));
-            Notify(nameof(UserPollList));
+            foreach (var poll in Model.PollList)
+            {
+                UserPollList.Add(new PollViewModel(poll, this));
+                Notify(nameof(UserPollList));
+            }
+        }
+        else
+        {
+            foreach (var poll in Model.PollList.Where(poll => poll.CreatorId == CurrentUser.Id))
+            {
+                UserPollList.Add(new PollViewModel(poll, this));
+                Notify(nameof(UserPollList));
+            }
         }
     }
 

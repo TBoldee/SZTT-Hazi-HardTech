@@ -21,8 +21,12 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="viewModel:PollViewModel">
                         <VerticalStackLayout>
-                            <Button Text="Close poll" Command="{Binding BindingContext.ClosePollCommand ,Source={x:Reference RootPage}}"
-                                    CommandParameter="{Binding .}" WidthRequest="100" IsVisible="{Binding Status, Converter={StaticResource Closed2BoolConverter}}"/>
+                            <HorizontalStackLayout IsVisible="{Binding Status, Converter={StaticResource Closed2BoolConverter}}">
+                                <Button Text="Close poll" Command="{Binding BindingContext.ClosePollCommand ,Source={x:Reference RootPage}}"
+                                        CommandParameter="{Binding .}" WidthRequest="100" />
+                                <Button Text="Edit poll" Command="{Binding BindingContext.ClosePollCommand ,Source={x:Reference RootPage}}"
+                                        CommandParameter="{Binding .}" WidthRequest="100" />
+                            </HorizontalStackLayout>
                             <Border WidthRequest="700" Margin="20" Padding="2" Stroke="{Binding Status, Converter={StaticResource Closed2ColorConverter}}">
                                 <VerticalStackLayout>
                                     <Label Text="{Binding Title}" FontSize="35" HorizontalOptions="Center"/>
