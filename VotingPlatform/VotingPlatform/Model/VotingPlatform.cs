@@ -24,6 +24,7 @@ namespace VotingPlatform.Model
 		public int NextVoteId => ++lastVoteId;
 		[JsonIgnore]
 		public Dictionary<string, string> UserDictionary { get; set; } = new(); //username,hash
+		public Dictionary<int, DateTime> BanDictionary { get; set; } = new();
 
 		[JsonInclude]
 		private int lastUserId = 0;
@@ -38,6 +39,7 @@ namespace VotingPlatform.Model
 		internal void InitializeRelations()
 		{
 			UserDictionary = DataSerializer.DeserializeUserDict();
+			BanDictionary = DataSerializer.DeserializeBanDict();
 			ConnectPollsToVotes();
 		}
 		public bool LogIn(string username, string password)
@@ -97,6 +99,18 @@ namespace VotingPlatform.Model
 		public bool CheckIfUserExists(string username)
 		{
 			return UserList.Any(u => u.Name.Equals(username));
+		}
+
+		public void BanUser(int userId)
+		{
+			BanDictionary.Add(userId, DateTime.Now.AddDays(1));
+			DataSerializer.SerializeBanDict(BanDictionary);
+		}
+
+		public void UnbanUser(int userId)
+		{
+			BanDictionary.Remove(userId);
+			DataSerializer.SerializeBanDict(BanDictionary);
 		}
 	}
 }

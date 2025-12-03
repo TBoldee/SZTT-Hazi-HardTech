@@ -28,6 +28,7 @@ public class VotingPlatformViewModel : ObservableObject
     }
 
     public VotingCommand VotingCommand { get; set; }
+    public BanCommand BanCommand { get; set; }
 
     public VotingPlatformViewModel(Model.VotingPlatform vp)
     {
@@ -43,6 +44,7 @@ public class VotingPlatformViewModel : ObservableObject
         RefreshHighlights();
         RefreshUserViewModelList();
         VotingCommand = new VotingCommand(this);
+        BanCommand = new BanCommand(this);
     }
 
     public void RefreshHighlights()
@@ -107,7 +109,7 @@ public class VotingPlatformViewModel : ObservableObject
     {
         if (Model.LogIn(username, password))
         {
-            CurrentUser = new UserViewModel(Model.GetUser(username), this);
+            CurrentUser = UserViewModelList.First(u => u.Name == username);
             return true;
         }
         return false;
@@ -133,7 +135,16 @@ public class VotingPlatformViewModel : ObservableObject
         UserViewModelList.Clear();
         foreach (var user in Model.UserList)
         {
-            UserViewModelList.Add(new UserViewModel(user, this));
+            var userVm = new UserViewModel(user, this);
+            if (Model.BanDictionary.ContainsKey(user.Id)) userVm.Banned = true;
+            UserViewModelList.Add(userVm);
         }
     }
+
+    public void BanUser(int userId)
+    {
+        Model.BanUser(userId);
+        
+    }
+    public void UnbanUser(int userId) => Model.UnbanUser(userId);
 }

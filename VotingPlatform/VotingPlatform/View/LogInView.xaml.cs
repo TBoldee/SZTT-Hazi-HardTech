@@ -12,6 +12,7 @@ public partial class LogInView : ContentPage
 		ViewModel.LoggedIn += LoggedInSuccessfully;
 		ViewModel.Registered += RegisteredSuccessfully;
 		ViewModel.RegisterFailed += RegistrationFailed;
+		ViewModel.BannedLogin += BannedLogin;
 		InitializeComponent();
 	}
 
@@ -33,5 +34,9 @@ public partial class LogInView : ContentPage
 	public async void RegistrationFailed()
 	{
 		await DisplayAlert("Registration Failed", "", "Ok");
+	}
+	public async void BannedLogin(DateTime? time)
+	{
+		await DisplayAlert("You are currently banned!", $"You are banned until: {time}", "Ok");
 	}
 }

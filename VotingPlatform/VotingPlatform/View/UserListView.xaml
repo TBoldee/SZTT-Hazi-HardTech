@@ -6,7 +6,11 @@
 			 xmlns:viewModel="clr-namespace:VotingPlatform.ViewModel"
              xmlns:model="clr-namespace:VotingPlatform.Model"
              xmlns:view="clr-namespace:VotingPlatform.View"
+             x:Name="RootPage"
              Title="">
+	<ContentPage.Resources>
+		<view:Banned2TextConverter x:Key="Banned2TextConverter"/>
+	</ContentPage.Resources>
 	<ContentPage.Content>
 		<StackLayout x:DataType="viewModel:VotingPlatformViewModel">
 			<CollectionView ItemsSource="{Binding UserViewModelList}">
@@ -17,7 +21,12 @@
 								<Label Text="{Binding Name}" FontSize="20"/>
 								<Label Text="-"/>
 								<Label Text="{Binding Id}" FontSize="20"/>
-								<Button Text="Ban" HeightRequest="35" MinimumHeightRequest="35"/>
+								<Label Text="-"/>
+								<Label Text="{Binding Banned, Converter={view:Banned2TextConverter}}"/>
+								<Button Text="Ban" HeightRequest="35" MinimumHeightRequest="35" IsVisible="{Binding Unbanned}"
+								        Command="{Binding BindingContext.BanCommand, Source={x:Reference RootPage}}" CommandParameter="{Binding .}"/>
+								<Button Text="Unban" HeightRequest="35" MinimumHeightRequest="35" IsVisible="{Binding Banned}"
+								        Command="{Binding BindingContext.BanCommand, Source={x:Reference RootPage}}" CommandParameter="{Binding .}"/>
 							</HorizontalStackLayout>
 						</Border>
 					</DataTemplate>

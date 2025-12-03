@@ -44,6 +44,7 @@ public class AuthenticationViewModel : ObservableObject
     public event Action? LoggedIn;
     public event Action? Registered;
     public event Action? RegisterFailed;
+    public event Action<DateTime?>? BannedLogin;
 
     public AuthenticationViewModel(VotingPlatformViewModel vpvm)
     {
@@ -59,11 +60,11 @@ public class AuthenticationViewModel : ObservableObject
 
     private void ResetAllFields()
     {
-        LoginUsername = "Username";
-        LoginPassword = "Password";
-        RegisterUsername = "Username";
-        RegisterPassword = "Password";
-        RegisterPasswordConfirm = "Password again";
+        LoginUsername = "";
+        LoginPassword = "";
+        RegisterUsername = "";
+        RegisterPassword = "";
+        RegisterPasswordConfirm = "";
         NotifyAllProperties();
     }
 
@@ -83,6 +84,7 @@ public class AuthenticationViewModel : ObservableObject
         if (Vpvm.TryLogIn(LoginUsername, LoginPassword))
         {
             LoggedIn?.Invoke();
+            if (Vpvm.CurrentUser.Banned) BannedLogin?.Invoke(Vpvm.CurrentUser.BannedUntil);
             return true;
         }
         return false;

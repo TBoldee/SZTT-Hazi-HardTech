@@ -49,6 +49,7 @@ public class PollCreationViewModel : ObservableObject
 
     private void CreatePoll()
     {
+        if (CheckIfBanned()) return;
         if (ValidatePollDetails())
         {
             var newPoll = new Poll(Vpvm.NextPollId,Vpvm.CurrentUser.Id, Title, Description, ClosedAt, Options);
@@ -75,5 +76,12 @@ public class PollCreationViewModel : ObservableObject
         Notify(nameof(Title));
         Notify(nameof(Description));
         Notify(nameof(Options));
+    }
+
+    private bool CheckIfBanned()
+    {
+        var banned = Vpvm.CurrentUser.Banned;
+        if (banned) CreationFailed?.Invoke();
+        return banned;
     }
 }
