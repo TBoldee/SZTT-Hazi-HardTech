@@ -31,6 +31,7 @@ public class PollCreationViewModel : ObservableObject
     {
         var re = new Regex("""^\s*$""");
         bool optionsInvalid = Options.Any(opt => re.IsMatch(opt.Text));
+        if (Options.Count < 2) optionsInvalid = true;
         var allOptionTexts = Options.Select(opt => opt.Text).ToList();
         if (allOptionTexts.Count() != allOptionTexts.Distinct().Count()) optionsInvalid = true;
 

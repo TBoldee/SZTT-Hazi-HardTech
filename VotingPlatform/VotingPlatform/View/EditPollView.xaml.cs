@@ -15,7 +15,7 @@ public partial class EditPollView : ContentPage
         ViewModel = AppShell.VPVM.PollEditViewModel;
         BindingContext = ViewModel;
         ViewModel.EditSuccessful += MoveToUserList;
-        ViewModel.EditFailed += MoveToUserList;
+        ViewModel.EditFailed += EditFailed;
         InitializeComponent();
     }
     

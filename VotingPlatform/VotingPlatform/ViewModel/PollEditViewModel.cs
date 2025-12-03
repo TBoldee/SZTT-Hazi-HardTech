@@ -81,7 +81,8 @@ public class PollEditViewModel : ObservableObject
     {
         var re = new Regex("""^\s*$""");
         bool optionsInvalid = Options.Any(opt => re.IsMatch(opt.Text));
-        var allOptionTexts = Options.Select(opt => opt.Text).ToList();
+        if (Options.Count + _optionsWithVotes.Count < 2) optionsInvalid = true;
+        var allOptionTexts = Options.Concat(_optionsWithVotes).Select(o => o.Text).ToList();
         if (allOptionTexts.Count != allOptionTexts.Distinct().Count()) optionsInvalid = true;
 
         if (re.IsMatch(Title) ||

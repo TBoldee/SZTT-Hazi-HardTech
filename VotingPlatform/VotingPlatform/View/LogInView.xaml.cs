@@ -20,8 +20,8 @@ public partial class LogInView : ContentPage
 	{
 		if (ViewModel.Vpvm.CurrentUser.Id != 1)
 		{
-			var userListTab = Shell.Current.Items[1].Items.Where(s => s.Title == "User List").FirstOrDefault();
-			if (userListTab != null) Shell.Current.Items[1].Items.Remove(userListTab);
+			var userListTab = Shell.Current.Items[2].Items.Where(s => s.Title == "User List").FirstOrDefault();
+			if (userListTab != null) Shell.Current.Items[2].Items.Remove(userListTab);
 		}
 		await Shell.Current.GoToAsync("//"+nameof(OpenPollsView));
 	}
