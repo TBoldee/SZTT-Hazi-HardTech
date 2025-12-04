@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="VotingPlatform.View.EditPollView"
+             xmlns:viewModel="clr-namespace:VotingPlatform.ViewModel"
+             xmlns:model="clr-namespace:VotingPlatform.Model"
+             x:Name="RootPage"
+             Title="">
+    
+    <ContentPage.Content>
+        <ScrollView>
+            <VerticalStackLayout x:DataType="viewModel:PollEditViewModel" Spacing="5" Padding="5" HorizontalOptions="Center" >
+                <HorizontalStackLayout Spacing="5">
+                    <Label Text="Title: "/>
+                    <Entry WidthRequest="150" Text="{Binding Title}"/>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Spacing="5">
+                    <Label Text="Description: "/>
+                    <Editor WidthRequest="150" Text="{Binding Description}" AutoSize="TextChanges"/>
+                </HorizontalStackLayout>
+                <Label Text="Options: "/>
+                <HorizontalStackLayout Spacing="15">
+                    <CollectionView ItemsSource="{Binding Options}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="viewModel:VoteOptionViewModel">
+                                <HorizontalStackLayout>
+                                    <Button Text="X" Command="{Binding BindingContext.RemoveOptionCommand, Source ={Reference RootPage}}"
+                                            CommandParameter="{Binding .}"/>
+                                    <Entry Text="{Binding Text}" WidthRequest="150"/>
+                                </HorizontalStackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                    <VerticalStackLayout Spacing="15">
+                        <Button Text="Add option" MaximumHeightRequest="50" Command="{Binding AddOptionCommand}" VerticalOptions="Start"/>
+                        <Button Text="Finalize Edit" MaximumHeightRequest="50" Command="{Binding FinalizePollCommand}" />
+                    </VerticalStackLayout>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

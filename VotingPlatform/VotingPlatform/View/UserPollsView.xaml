@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="VotingPlatform.View.UserPollsView"
+             xmlns:viewModel="clr-namespace:VotingPlatform.ViewModel"
+             xmlns:model="clr-namespace:VotingPlatform.Model"
+             xmlns:view="clr-namespace:VotingPlatform.View"
+             x:Name="RootPage"
+             Title="">
+    <ContentPage.Resources>
+		<view:Voted2ColorConverter x:Key="Voted2ColorConverter"/>
+        <view:Closed2BoolConverter x:Key="Closed2BoolConverter"/>
+        <view:Closed2ColorConverter x:Key="Closed2ColorConverter"/>
+	</ContentPage.Resources>
+	
+	<ContentPage.Content>
+        <Grid RowDefinitions="Auto,*" x:DataType="viewModel:VotingPlatformViewModel">
+            <Label Grid.Row="0" HorizontalOptions="Center"/>
+            <CollectionView ItemsSource="{Binding UserPollList}" Grid.Row="1">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="viewModel:PollViewModel">
+                        <VerticalStackLayout Spacing="2">
+                            <HorizontalStackLayout Spacing="5" IsVisible="{Binding Status, Converter={StaticResource Closed2BoolConverter}}" HorizontalOptions="Center">
+                                <Button Text="Close poll" Command="{Binding BindingContext.ClosePollCommand ,Source={x:Reference RootPage}}"
+                                        CommandParameter="{Binding .}" WidthRequest="100" />
+                                <Button Text="Edit poll" Command="{Binding BindingContext.EditPollCommand ,Source={x:Reference RootPage}}"
+                                        CommandParameter="{Binding .}" WidthRequest="100" />
+                            </HorizontalStackLayout>
+                            <Button Text="Delete poll" Command="{Binding BindingContext.DeletePollCommand ,Source={x:Reference RootPage}}"
+                                    CommandParameter="{Binding .}" WidthRequest="100" />
+                            <Border WidthRequest="700" Margin="0,0,0,25" Padding="2" Stroke="{Binding Status, Converter={StaticResource Closed2ColorConverter}}">
+                                <VerticalStackLayout>
+                                    <Label Text="{Binding Title}" FontSize="35" HorizontalOptions="Center"/>
+                                    <Label Text="{Binding Description}" FontSize="20"/>
+                                    <HorizontalStackLayout Spacing="5">
+                                        <Label Text="Created at:" FontSize="10"/>
+                                        <Label Text="{Binding CreatedAt}" FontSize="10"/>
+                                    </HorizontalStackLayout>
+                                    <HorizontalStackLayout Spacing="5">
+                                        <Label Text="Closes at:" FontSize="10"/>
+                                        <Label Text="{Binding ClosedAt}" FontSize="10"/>
+                                    </HorizontalStackLayout>
+                                    <StackLayout BindableLayout.ItemsSource="{Binding Options}">
+                                        <BindableLayout.ItemTemplate>
+                                            <DataTemplate x:DataType="viewModel:VoteOptionViewModel">
+                                                <Border Padding="2" Stroke="{Binding IsHighlighted, Converter={StaticResource Voted2ColorConverter}}">
+                                                    <Grid ColumnDefinitions="Auto, *">
+                                                        <Label Grid.Column="0" Text="{Binding VoteCount}" HorizontalOptions="Start" VerticalOptions="Center"/>
+                                                        <Button Grid.Column="1" Text="{Binding Text}" TextColor="AliceBlue" BackgroundColor="Transparent"
+                                                                Command="{Binding BindingContext.VotingCommand, Source={x:Reference RootPage}}"
+                                                                CommandParameter="{Binding .}" HorizontalOptions="FillAndExpand"/>
+                                                    </Grid>
+                                                </Border>
+                                            </DataTemplate>
+                                        </BindableLayout.ItemTemplate>
+                                    </StackLayout>
+                                </VerticalStackLayout>
+                            </Border>
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

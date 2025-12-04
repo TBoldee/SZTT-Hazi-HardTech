@@ -2,11 +2,25 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="VotingPlatform.View.LogInView"
+             xmlns:viewModel="clr-namespace:VotingPlatform.ViewModel"
+             xmlns:model="clr-namespace:VotingPlatform.Model"
              Title="">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    <ContentPage.Content>
+        <VerticalStackLayout x:DataType="viewModel:AuthenticationViewModel">
+			<Label Text="{Binding Title}" FontSize="50" HorizontalOptions="Center"/>
+			<VerticalStackLayout IsVisible="{Binding IsLoggingIn}" Spacing="10" Padding="5" HorizontalOptions="Center">
+				<Entry Text="{Binding LoginUsername}" WidthRequest="250" Placeholder="Username"/>
+				<Entry Text="{Binding LoginPassword}" WidthRequest="250" IsPassword="True" Placeholder="Password"/>
+				<Button Text="Log in" Command="{Binding LoginCommand}"/>
+				<Button Text="Register" Command="{Binding ShowRegisterCommand}" HorizontalOptions="End" WidthRequest="85" IsVisible="{Binding IsLoggingIn}"/>
+			</VerticalStackLayout>
+			<VerticalStackLayout IsVisible="{Binding IsRegistering}" Spacing="10" Padding="5" HorizontalOptions="Center">
+				<Entry Text="{Binding RegisterUsername}" WidthRequest="250" Placeholder="Username"/>
+				<Entry Text="{Binding RegisterPassword}" WidthRequest="250" IsPassword="True" Placeholder="Password"/>
+				<Entry Text="{Binding RegisterPasswordConfirm}" WidthRequest="250" IsPassword="True" Placeholder="Password again"/>
+				<Button Text="Register" Command="{Binding RegisterCommand}"/>
+				<Button Text="Cancel" Command="{Binding ShowLoginCommand}" HorizontalOptions="End" WidthRequest="85" />
+			</VerticalStackLayout>
+		</VerticalStackLayout>
+    </ContentPage.Content>
 </ContentPage>

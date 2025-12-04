@@ -1,9 +1,42 @@
+using VotingPlatform.ViewModel;
+
 namespace VotingPlatform.View;
 
 public partial class LogInView : ContentPage
 {
+	public AuthenticationViewModel ViewModel {get; set;}
 	public LogInView()
 	{
+		this.ViewModel = AppShell.VPVM.AuthenticationViewModel;
+		BindingContext = this.ViewModel;
+		ViewModel.LoggedIn += LoggedInSuccessfully;
+		ViewModel.Registered += RegisteredSuccessfully;
+		ViewModel.RegisterFailed += RegistrationFailed;
+		ViewModel.BannedLogin += BannedLogin;
 		InitializeComponent();
+	}
+
+	private async void LoggedInSuccessfully()
+	{
+		if (ViewModel.Vpvm.CurrentUser.Id != 1)
+		{
+			var userListTab = Shell.Current.Items[2].Items.Where(s => s.Title == "User List").FirstOrDefault();
+			if (userListTab != null) Shell.Current.Items[2].Items.Remove(userListTab);
+		}
+		await Shell.Current.GoToAsync("//"+nameof(OpenPollsView));
+	}
+
+	private async void RegisteredSuccessfully()
+	{
+		await DisplayAlert("Registration Successful", "", "Ok");
+	}
+
+	private async void RegistrationFailed()
+	{
+		await DisplayAlert("Registration Failed", "", "Ok");
+	}
+	private async void BannedLogin(DateTime? time)
+	{
+		await DisplayAlert("You are currently banned!", $"You are banned until: {time}", "Ok");
 	}
 }

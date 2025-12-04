@@ -6,18 +6,16 @@ using System.Threading.Tasks;
 
 namespace VotingPlatform.Model
 {
-	public class Vote
+	public class Vote : ObservableObject
 	{
-		private static int voteId = 1;
 		public int VoteId { get; set; }
 		public int UserId { get; set; }
 		public int PollId { get; set; }
 		public int Option { get; set; }
 
-		public Vote(int userId, int pollId, int option)
+		public Vote(int voteId, int userId, int pollId, int option)
 		{
 			VoteId = voteId;
-			voteId++;
 			UserId = userId;
 			PollId = pollId;
 			Option = option;
