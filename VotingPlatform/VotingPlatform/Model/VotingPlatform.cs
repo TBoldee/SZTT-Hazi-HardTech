@@ -52,6 +52,7 @@ namespace VotingPlatform.Model
 		{
 			UserDictionary = DataSerializer.DeserializeUserDict();
 			BanDictionary = DataSerializer.DeserializeBanDict();
+			CheckBans();
 			ConnectPollsToVotes();
 		}
 		public bool LogIn(string username, string password)
@@ -142,6 +143,14 @@ namespace VotingPlatform.Model
 				VoteList.Remove(vote);
 			}
 			DataSerializer.SerializeVotingPlatform(this);
+		}
+
+		private void CheckBans()
+		{
+			foreach (var kvp in BanDictionary)
+			{
+				if (kvp.Value < DateTime.Now) BanDictionary.Remove(kvp.Key);
+			}
 		}
 	}
 }
