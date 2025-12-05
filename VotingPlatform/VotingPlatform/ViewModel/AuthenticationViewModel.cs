@@ -109,7 +109,7 @@ public class AuthenticationViewModel : ObservableObject
 
     private bool ValidateRegistrationEntries()
     {
-        var re = new Regex("""^\s*$""");
+        var re = new Regex("""^\s*$|[\:\|\n]+""");
         if (re.IsMatch(RegisterUsername) || re.IsMatch(RegisterPassword) ||
             re.IsMatch(RegisterPasswordConfirm)) return false;
         if (Vpvm.CheckIfUserExists(RegisterUsername)) return false;

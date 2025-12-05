@@ -20,7 +20,11 @@ namespace VotingPlatform.Model
 
 		public static VotingPlatform DeserializeVotingPlatform()
 		{
-			if (!File.Exists("VotingPlatform.json")) File.Create("VotingPlatform.json");
+			if (!File.Exists("VotingPlatform.json"))
+			{
+				var file = File.Create("VotingPlatform.json");
+				file.Close();
+			}
 			var deserialized = File.ReadAllText("VotingPlatform.json");
 			if (deserialized == "") return new VotingPlatform();
 			var vp = JsonSerializer.Deserialize<VotingPlatform>(deserialized, _options);
@@ -41,6 +45,7 @@ namespace VotingPlatform.Model
 		{
 			if (!File.Exists("UserDict.txt")) File.Create("UserDict.txt");
 			var lines = File.ReadLines("UserDict.txt");
+			if (!lines.Any()) return new Dictionary<string, string>();
 			return lines.Select(line => line.Split(':')).ToDictionary(split => split[0], split => split[1]);
 		}
 		public static void SerializeBanDict(Dictionary<int, DateTime> banDict)
@@ -57,6 +62,7 @@ namespace VotingPlatform.Model
 		{
 			if (!File.Exists("BanDict.txt")) File.Create("BanDict.txt");
 			var lines = File.ReadLines("BanDict.txt");
+			if (!lines.Any()) return new Dictionary<int, DateTime>();
 			return lines.Select(line => line.Split(" | ")).
 				ToDictionary(split => Convert.ToInt32(split[0]), split => DateTime.ParseExact(split[1],"O", null));
 		}
