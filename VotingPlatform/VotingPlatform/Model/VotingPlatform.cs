@@ -46,7 +46,7 @@ namespace VotingPlatform.Model
 
 		public VotingPlatform()
 		{
-			
+
 		}
 		internal void InitializeRelations()
 		{
