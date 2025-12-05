@@ -61,6 +61,11 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-        </Grid>
+			<HorizontalStackLayout Grid.Column="1" HorizontalOptions="End" Margin="10,5">
+				<Border Padding="5" Stroke="AliceBlue">
+					<Label Text="{Binding CurrentUser.Name}" FontSize="20"/>
+				</Border>
+			</HorizontalStackLayout>
+		</Grid>
     </ContentPage.Content>
 </ContentPage>

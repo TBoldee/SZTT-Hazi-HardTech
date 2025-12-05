@@ -16,7 +16,7 @@
 	<ContentPage.Content>
         <Grid RowDefinitions="Auto,*" x:DataType="viewModel:VotingPlatformViewModel">
             <Label Grid.Row="0" HorizontalOptions="Center"/>
-            <CollectionView ItemsSource="{Binding OpenPollList}" Grid.Row="1">
+			<CollectionView ItemsSource="{Binding OpenPollList}" Grid.Row="1">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="viewModel:PollViewModel">
                         <VerticalStackLayout>
@@ -52,6 +52,11 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-        </Grid>
+			<HorizontalStackLayout Grid.Column="1" HorizontalOptions="End" Margin="10,5">
+				<Border Padding="5" Stroke="AliceBlue">
+					<Label Text="{Binding CurrentUser.Name}" FontSize="20"/>
+				</Border>
+			</HorizontalStackLayout>
+		</Grid>
     </ContentPage.Content>
 </ContentPage>
