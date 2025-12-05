@@ -5,7 +5,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:VotingPlatform"
 	xmlns:view="clr-namespace:VotingPlatform.View"
-    Title="VotingPlatform">
+    Title="VotingPlatform"
+    FlyoutBehavior="Disabled">
 
 	<ShellItem>
 		<ShellContent
