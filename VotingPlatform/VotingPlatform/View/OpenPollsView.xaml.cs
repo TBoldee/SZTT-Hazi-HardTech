@@ -14,7 +14,7 @@ public partial class OpenPollsView : ContentPage
     {
         ViewModel = AppShell.VPVM;
         BindingContext = ViewModel;
-        ViewModel.RefreshHighlightsAsync();
+        ViewModel.RefreshHighlights();
         InitializeComponent();
     }
 }

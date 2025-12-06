@@ -40,7 +40,7 @@ public class UserViewModel : ObservableObject
 
     public bool HasVotedOnOption(VoteOptionViewModel option)
     {
-        return Vpvm.Model.VoteList.AsParallel().Where(v => v.Option == option.Id).Any(v => v.UserId == Id);
+        return option.Poll.Votes.AsParallel().Where(v => v.Option == option.Id).Any(v => v.UserId == Id);
     }
 
     private DateTime? TryGetBanExpiration()

@@ -36,7 +36,7 @@ public class PollEditViewModel : ObservableObject
         NotifyAllPropertiesChanged();
     }
 
-    private async void Save()
+    private void Save()
     {
         if (ValidatePollDetails())
         {
@@ -45,7 +45,7 @@ public class PollEditViewModel : ObservableObject
             foreach (var option in _optionsWithVotes) Options.Add(option); //visszarakni a kiszedett option-öket
             _originalPoll.Options = Options;
             DataSerializer.SerializeVotingPlatform(Vpvm.Model);
-            await Task.Run(() => Vpvm.RefreshPollsAsync());
+            Vpvm.RefreshPolls();
             EditSuccessful?.Invoke();
         }
     }

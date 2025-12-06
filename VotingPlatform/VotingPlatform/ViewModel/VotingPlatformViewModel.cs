@@ -24,7 +24,7 @@ public class VotingPlatformViewModel : ObservableObject
         set
         {
             _currentUser = value;
-            if (value != null) RefreshPollsAsync();
+            if (value != null) RefreshPolls();
         }
     }
 
@@ -46,8 +46,8 @@ public class VotingPlatformViewModel : ObservableObject
         ClosedPollList = new PollViewModelList();
         UserPollList = new PollViewModelList();
         UserViewModelList = new ObservableCollection<UserViewModel>();
-        RefreshPollsAsync();
-        RefreshHighlightsAsync();
+        RefreshPolls();
+        RefreshHighlights();
         RefreshUserViewModelList();
         VotingCommand = new VotingCommand(this);
         BanCommand = new BanCommand(this);
@@ -56,7 +56,7 @@ public class VotingPlatformViewModel : ObservableObject
         DeletePollCommand = new Command<PollViewModel>(param => DeletePoll(param));
     }
 
-    public async Task RefreshHighlightsAsync()
+    public void RefreshHighlights()
     {
         foreach (var pollVm in OpenPollList)
         {
@@ -84,7 +84,7 @@ public class VotingPlatformViewModel : ObservableObject
         }
     }
 
-    public async Task RefreshPollsAsync()
+    public void RefreshPolls()
     {
         Model.RefreshPollStatuses();
         OpenPollList.Clear();
@@ -167,10 +167,10 @@ public class VotingPlatformViewModel : ObservableObject
     public void BanUser(int userId) => Model.BanUser(userId);
     public void UnbanUser(int userId) => Model.UnbanUser(userId);
 
-    public async void ClosePoll(PollViewModel poll)
+    public void ClosePoll(PollViewModel poll)
     {
         Model.ClosePoll(poll.Model);
-        await Task.Run(() => RefreshPollsAsync());
+        RefreshPolls();
     }
 
     public void EditPoll(PollViewModel poll)
@@ -179,9 +179,9 @@ public class VotingPlatformViewModel : ObservableObject
         PollEditViewModel.Load(poll);
     }
 
-    private async void DeletePoll(PollViewModel poll)
+    private void DeletePoll(PollViewModel poll)
     {
         Model.DeletePoll(poll.Model);
-        await Task.Run(() => RefreshPollsAsync());
+        RefreshPolls();
     }
 }

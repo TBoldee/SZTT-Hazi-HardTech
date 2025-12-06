@@ -44,7 +44,7 @@ public class PollViewModel : ObservableObject
             foreach (var option in _options) Model.VoteOptions.Add(option.Model);
         }
     }
-    public List<Vote> Votes { get; set; } = new();
+    public List<Vote> Votes => Model.Votes;
     public VotingPlatformViewModel Vpvm { get; set; }
 
     public PollViewModel(Poll poll, VotingPlatformViewModel vpvm)
