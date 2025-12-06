@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace VotingPlatform.Model
 {
-	public class VotingPlatform : ObservableObject
+	public class VotePlatform : ObservableObject
 	{
 		public List<User> UserList { get; set; } = new();
 		public List<Poll> PollList { get; set; } = new();
@@ -33,7 +33,7 @@ namespace VotingPlatform.Model
 		public int NextUserId => ++lastUserId;
 
 		[JsonConstructor]
-		public VotingPlatform(List<User> userlist, List<Poll> polllist, List<Vote> votelist, int lastpollId, int lastvoteid, int lastuserid)
+		public VotePlatform(List<User> userlist, List<Poll> polllist, List<Vote> votelist, int lastpollId, int lastvoteid, int lastuserid)
 		{
 			UserList = userlist;
 			PollList = polllist;
@@ -44,7 +44,7 @@ namespace VotingPlatform.Model
 			InitializeRelations();
 		}
 
-		public VotingPlatform()
+		public VotePlatform()
 		{
 
 		}
@@ -67,15 +67,14 @@ namespace VotingPlatform.Model
 		public bool Register(string username, string password)
 		{
 			if (UserDictionary.Keys.Any(name => name.Equals(username))) return  false;
-			else
-			{
-				var hash = HashPassword(password);
-				UserDictionary.Add(username, hash);
-				UserList.Add(new User(NextUserId, username));
-				DataSerializer.SerializeUserDict(UserDictionary);
-				DataSerializer.SerializeVotingPlatform(this);
-				return true;
-			}
+			if (username.Equals("") || password.Equals("")) return false;
+			if (username.Contains('|') || username.Contains(':') || password.Contains('|') || password.Contains(':')) return false;
+			var hash = HashPassword(password);
+			UserDictionary.Add(username, hash);
+			UserList.Add(new User(NextUserId, username));
+			DataSerializer.SerializeUserDict(UserDictionary);
+			DataSerializer.SerializeVotingPlatform(this);
+			return true;
 		}
 		
 		private static string HashPassword(string password)
@@ -145,7 +144,7 @@ namespace VotingPlatform.Model
 			DataSerializer.SerializeVotingPlatform(this);
 		}
 
-		private void CheckBans()
+		public void CheckBans()
 		{
 			foreach (var kvp in BanDictionary)
 			{

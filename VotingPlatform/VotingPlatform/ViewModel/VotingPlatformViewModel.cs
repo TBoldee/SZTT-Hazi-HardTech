@@ -15,7 +15,7 @@ public class VotingPlatformViewModel : ObservableObject
     public int NextPollId => Model.NextPollId;
     public int NextVoteId => Model.NextVoteId;
     public int NextUserId => Model.NextUserId;
-    public Model.VotingPlatform Model { get; set; }
+    public Model.VotePlatform Model { get; set; }
     private UserViewModel _currentUser;
 
     public UserViewModel CurrentUser
@@ -35,7 +35,7 @@ public class VotingPlatformViewModel : ObservableObject
     public Command<PollViewModel> DeletePollCommand { get; set; }
     public event Action? EditClicked;
 
-    public VotingPlatformViewModel(Model.VotingPlatform vp)
+    public VotingPlatformViewModel(Model.VotePlatform vp)
     {
         Model = vp;
         CurrentUser = null;

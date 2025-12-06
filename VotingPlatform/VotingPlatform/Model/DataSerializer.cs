@@ -12,13 +12,13 @@ namespace VotingPlatform.Model
 	{
 		private static JsonSerializerOptions _options =  new() {WriteIndented = true};
 
-		public static void SerializeVotingPlatform(VotingPlatform vp)
+		public static void SerializeVotingPlatform(VotePlatform vp)
 		{
 			var serialized = JsonSerializer.Serialize(vp, _options);
 			File.WriteAllText("VotingPlatform.json", serialized);
 		}
 
-		public static VotingPlatform DeserializeVotingPlatform()
+		public static VotePlatform DeserializeVotingPlatform()
 		{
 			if (!File.Exists("VotingPlatform.json"))
 			{
@@ -26,8 +26,8 @@ namespace VotingPlatform.Model
 				file.Close();
 			}
 			var deserialized = File.ReadAllText("VotingPlatform.json");
-			if (deserialized == "") return new VotingPlatform();
-			var vp = JsonSerializer.Deserialize<VotingPlatform>(deserialized, _options);
+			if (deserialized == "") return new VotePlatform();
+			var vp = JsonSerializer.Deserialize<VotePlatform>(deserialized, _options);
 			return vp;
 		}
 
