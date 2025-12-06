@@ -8,6 +8,7 @@ public class PollViewModel : ObservableObject
     public Poll Model { get; set; }
     public int Id => Model.Id;
     public int CreatorId => Model.CreatorId;
+    public string CreatorName { get; set; }
 
     public string Title
     {
@@ -43,7 +44,7 @@ public class PollViewModel : ObservableObject
             foreach (var option in _options) Model.VoteOptions.Add(option.Model);
         }
     }
-    public List<Vote> Votes { get; set; } = new();
+    public List<Vote> Votes => Model.Votes;
     public VotingPlatformViewModel Vpvm { get; set; }
 
     public PollViewModel(Poll poll, VotingPlatformViewModel vpvm)
@@ -55,6 +56,7 @@ public class PollViewModel : ObservableObject
             var vovm = new VoteOptionViewModel(option, this);
             Options.Add(vovm);
         }
+        CreatorName = Vpvm.Model.GetNameById(CreatorId);
     }
     public void AddVote(Vote vote)
     {
