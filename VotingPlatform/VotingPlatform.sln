@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VotingPlatform", "VotingPla
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VotingPlatform.Tests", "VotingPlatform.Tests\VotingPlatform.Tests.csproj", "{05120D15-90AC-429E-910F-2DA40032096B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataGenerator", "DataGenerator\DataGenerator.csproj", "{A03237E6-F2E9-4B5D-A4EA-D10807258D71}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{05120D15-90AC-429E-910F-2DA40032096B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{05120D15-90AC-429E-910F-2DA40032096B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{05120D15-90AC-429E-910F-2DA40032096B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A03237E6-F2E9-4B5D-A4EA-D10807258D71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A03237E6-F2E9-4B5D-A4EA-D10807258D71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A03237E6-F2E9-4B5D-A4EA-D10807258D71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A03237E6-F2E9-4B5D-A4EA-D10807258D71}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
