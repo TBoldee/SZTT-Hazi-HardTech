@@ -56,15 +56,15 @@ public class PollCreationViewModel : ObservableObject
         Options.Remove(option);
         Notify(nameof(Options));
     }
-    private void CreatePoll()
+    private async void CreatePoll()
     {
         if (CheckIfBanned()) return;
         if (ValidatePollDetails())
         {
             var newPoll = new Poll(Vpvm.NextPollId,Vpvm.CurrentUser.Id, Title, Description, ClosedAt, Options);
             Vpvm.Model.PollList.Add(newPoll);
-            Vpvm.RefreshPolls();
-            Vpvm.RefreshHighlights();
+            await Task.Run(() => Vpvm.RefreshPollsAsync());
+            await Task.Run(() => Vpvm.RefreshHighlightsAsync());
             DataSerializer.SerializeVotingPlatform(Vpvm.Model);
             ResetAllFields();
             CreationSucceeded?.Invoke();

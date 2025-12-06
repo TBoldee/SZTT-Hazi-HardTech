@@ -151,5 +151,10 @@ namespace VotingPlatform.Model
 				if (kvp.Value < DateTime.Now) BanDictionary.Remove(kvp.Key);
 			}
 		}
+
+		public string GetNameById(int id)
+		{
+			return UserList.Where(u => u.Id == id).First().Name;
+		}
 	}
 }

@@ -16,7 +16,7 @@ public partial class UserPollsView : ContentPage
         ViewModel = AppShell.VPVM;
         BindingContext = ViewModel;
         ViewModel.EditClicked += MoveToEditor;
-        ViewModel.RefreshHighlights();
+        ViewModel.RefreshHighlightsAsync();
         InitializeComponent();
     }
     

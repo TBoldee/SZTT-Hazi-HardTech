@@ -17,7 +17,7 @@ public class VotingCommand :ICommand
         return Vpvm.CurrentUser.CanVoteOnPoll(option);
     }
 
-    public void Execute(object? parameter)
+    public async void Execute(object? parameter)
     {
         var option = parameter as VoteOptionViewModel;
         if (CanExecute(option))
@@ -26,7 +26,7 @@ public class VotingCommand :ICommand
             Vpvm.Model.VoteList.Add(newVote);
             Vpvm.Model.PollList.First(p => p.Id == option.Poll.Id).AddVote(newVote);
             option.RefreshVoteCount();
-            Vpvm.RefreshHighlights();
+            await Task.Run(() => Vpvm.RefreshHighlightsAsync());
             DataSerializer.SerializeVotingPlatform(Vpvm.Model);
         }
     }

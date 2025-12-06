@@ -14,7 +14,7 @@ public partial class ClosedPollsView : ContentPage
     {
         ViewModel = AppShell.VPVM;
         BindingContext = ViewModel;
-        ViewModel.RefreshHighlights();
+        ViewModel.RefreshHighlightsAsync();
         InitializeComponent();
     }
 }
